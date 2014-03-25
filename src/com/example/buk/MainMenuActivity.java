@@ -2,6 +2,8 @@ package com.example.buk;
 
 import android.app.Activity;
 import android.os.Bundle;
+import android.os.Debug;
+import android.util.Log;
 import android.view.Menu;
 
 public class MainMenuActivity extends Activity {
@@ -17,5 +19,11 @@ public class MainMenuActivity extends Activity {
         // Inflate the menu; this adds items to the action bar if it is present.
         getMenuInflater().inflate(R.menu.main, menu);
         return true;
+    }
+    
+    @Override
+    public void onResume() {
+    	super.onResume();
+    	Log.d("onResume", "onResume Was Called Right NOW!");
     }
 }
