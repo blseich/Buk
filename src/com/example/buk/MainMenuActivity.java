@@ -21,6 +21,8 @@ public class MainMenuActivity extends Activity {
         return true;
     }
     
+    
+    
     @Override
     public void onResume() {
     	super.onResume();
