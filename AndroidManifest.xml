@@ -28,6 +28,11 @@
             	<action android:name="android.intent.action.MAIN" />
             </intent-filter>
         </activity>
+         <activity
+             android:name="com.buklist.buk.savedBuks"
+             android:label="savedBuks" >
+             
+         </activity>
     </application>
 
 </manifest>

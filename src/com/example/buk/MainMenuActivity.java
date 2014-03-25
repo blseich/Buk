@@ -1,5 +1,7 @@
 package com.example.buk;
 
+import com.buklist.buk.savedBuks;
+
 import android.app.Activity;
 import android.os.Bundle;
 import android.view.Menu;
@@ -18,4 +20,7 @@ public class MainMenuActivity extends Activity {
         getMenuInflater().inflate(R.menu.main, menu);
         return true;
     }
+    //onclick of the button, start the buklist activity
+    //Intent intent = new Intent(this, savedBuks.class);
+    //startActivity(intent);
 }
