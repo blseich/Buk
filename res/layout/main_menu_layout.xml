@@ -42,6 +42,7 @@
         android:layout_height="50dp"
         android:layout_alignLeft="@+id/scanButton"
         android:layout_centerVertical="true"
+        android:onClick="showList"
         android:text="List" />
 
    

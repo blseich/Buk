@@ -9,6 +9,7 @@ public class BookList {
 	
 	public BookList(String titleForList) {
 		setListTitle(titleForList);
+		list = new ArrayList<Book>();
 	}
 
 	public String getListTitle() {
