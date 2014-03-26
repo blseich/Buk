@@ -15,7 +15,7 @@ import android.widget.RelativeLayout;
 public class MainActivity extends Activity {
 	
 	//CODE TO DELETE
-	BookHelper tester = new BookHelper();
+	//BookHelper tester = new BookHelper();
 	//END CODE TO DELETE
 
     @Override

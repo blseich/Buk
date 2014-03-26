@@ -40,7 +40,7 @@ public class MainMenuActivity extends Activity {
 	}
 	
 	//on click of the button, start the list activity
-	public void showList(View view){
+	public void showLists(View view){
 		Intent intent = new Intent(this, ViewListsActivity.class);
 		startActivity(intent);
 	}
