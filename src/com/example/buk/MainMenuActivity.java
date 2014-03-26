@@ -3,10 +3,12 @@ package com.example.buk;
 import com.buklist.buk.savedBuks;
 
 import android.app.Activity;
+import android.content.Intent;
 import android.os.Bundle;
 import android.os.Debug;
 import android.util.Log;
 import android.view.Menu;
+import android.view.View;
 
 public class MainMenuActivity extends Activity {
 
@@ -34,5 +36,30 @@ public class MainMenuActivity extends Activity {
     //onclick of the button, start the buklist activity
     //Intent intent = new Intent(this, savedBuks.class);
     //startActivity(intent);
+    public void doScan(View view)
+    {
+    	Intent intent = new Intent("com.google.zxing.client.android.SCAN"); intent.putExtra("com.google.zxing.client.android.SCAN.SCAN_MODE", "QR_CODE_MODE"); startActivityForResult(intent, 0);
+    }
+    
+    public void onActivityResult(int requestCode, int resultCode, Intent intent)
+    {
+    	if(requestCode == 0)     
+    	{         
+    		if(resultCode == RESULT_OK)
+    		{             
+    			String contents = intent.getStringExtra("SCAN_RESULT");  
+    			String format = intent.getStringExtra("SCAN_RESULT_FORMAT");              
+    			Log.i("xZing", "contents: "+contents+" format: "+format);              
+    			// Handle successful scan         
+    		}         
+    		else if(resultCode == RESULT_CANCELED) 
+    		{              
+    			// Handle cancel            
+    			Log.i("xZing", "Cancelled");         
+    		}      
+    	}
+    		
+    }
+
 
 }
