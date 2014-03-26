@@ -24,6 +24,7 @@
         android:layout_below="@+id/textView1"
         android:layout_centerHorizontal="true"
         android:layout_marginTop="31dp"
+        android:onClick="scanNow"
         android:text="Scan" />
 
     <Button
