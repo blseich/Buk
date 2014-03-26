@@ -36,9 +36,11 @@ public class MainMenuActivity extends Activity {
     //onclick of the button, start the buklist activity
     //Intent intent = new Intent(this, savedBuks.class);
     //startActivity(intent);
-    public void doScan(View view)
+    public void scanNow(View view)
     {
-    	Intent intent = new Intent("com.google.zxing.client.android.SCAN"); intent.putExtra("com.google.zxing.client.android.SCAN.SCAN_MODE", "QR_CODE_MODE"); startActivityForResult(intent, 0);
+    	Intent intent = new Intent("com.google.zxing.client.android.SCAN"); 
+    	intent.putExtra("com.google.zxing.client.android.SCAN.SCAN_MODE", "QR_CODE_MODE"); 
+    	startActivityForResult(intent, 0);
     }
     
     public void onActivityResult(int requestCode, int resultCode, Intent intent)
