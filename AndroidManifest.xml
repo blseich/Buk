@@ -17,7 +17,8 @@
             android:name="com.example.buk.MainActivity"
             android:label="" >
             <intent-filter>
-            	<action android:name="android.intent.action.MAIN" />
+                <action android:name="android.intent.action.MAIN" />
+
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
@@ -25,14 +26,21 @@
             android:name="com.example.buk.MainMenuActivity"
             android:label="Main Menu" >
             <intent-filter>
-            	<action android:name="android.intent.action.MAIN" />
+                <action android:name="android.intent.action.MAIN" />
             </intent-filter>
         </activity>
-         <activity
-             android:name="com.buklist.buk.savedBuks"
-             android:label="savedBuks" >
-             
-         </activity>
+        <activity
+            android:name="com.buklist.buk.savedBuks"
+            android:label="savedBuks" >
+        </activity>
+        <activity
+            android:name="com.example.buk.ViewListsActivity"
+            android:label="@string/title_activity_view_lists"
+            android:parentActivityName="com.example.buk.MainMenuActivity" >
+            <meta-data
+                android:name="android.support.PARENT_ACTIVITY"
+                android:value="com.example.buk.MainMenuActivity" />
+        </activity>
     </application>
 
 </manifest>

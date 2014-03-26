@@ -1,6 +1,6 @@
 package com.example.buk;
 
-import com.buklist.buk.savedBuks;
+
 
 import android.app.Activity;
 import android.os.Bundle;
