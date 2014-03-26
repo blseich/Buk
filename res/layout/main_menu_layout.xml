@@ -42,5 +42,6 @@
         android:layout_alignLeft="@+id/scanButton"
         android:layout_centerVertical="true"
         android:text="List" />
+
    
 </RelativeLayout>
