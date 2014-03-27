@@ -4,6 +4,8 @@ import android.os.Bundle;
 import android.app.Activity;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.widget.ImageView;
+import android.widget.TextView;
 import android.support.v4.app.NavUtils;
 import android.annotation.TargetApi;
 import android.os.Build;
@@ -15,6 +17,19 @@ public class BookView extends Activity {
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.activity_book_view);
 		// Show the Up button in the action bar.
+		
+		TextView title = (TextView) findViewById(R.id.bookTitle);
+		title.setText("This is the dynamic book title");
+	    
+		TextView author = (TextView) findViewById(R.id.bookAuthor);
+		author.setText("Dynamic Author");
+		
+		TextView desc = (TextView) findViewById(R.id.bookDescription);
+		desc.setText("Dynamic Description");
+		
+		ImageView cover = (ImageView) findViewById(R.id.bookCover);
+		//cover.setImageDrawable(drawable);
+		
 		setupActionBar();
 	}
 
