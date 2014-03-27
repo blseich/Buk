@@ -49,6 +49,7 @@ public class MainMenuActivity extends Activity {
 	public void onActivityResult(int requestCode, int resultCode, Intent intent) {
 		if (requestCode == 0) {
 			if (resultCode == RESULT_OK) {
+				//THIS IS THE RESULT OF THE SCAN!!!!!!
 				String contents = intent.getStringExtra("SCAN_RESULT");
 				String format = intent.getStringExtra("SCAN_RESULT_FORMAT");
 				Log.i("xZing", "contents: " + contents + " format: " + format);
