@@ -7,6 +7,7 @@ import android.view.MenuItem;
 import android.view.View;
 import android.support.v4.app.NavUtils;
 import android.annotation.TargetApi;
+import android.content.Intent;
 import android.os.Build;
 
 public class CreateList extends Activity {
@@ -54,7 +55,12 @@ public class CreateList extends Activity {
 	}
 	
 	public void listcreate(View view) {
+		//ADD code here to put the list into the list view
 		
+		
+		//open up all of the lists activity
+		Intent intent = new Intent(this, ViewListsActivity.class);
+		startActivity(intent);
 	
 	}
 
