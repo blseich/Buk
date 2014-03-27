@@ -83,6 +83,14 @@
             <meta-data
                 android:name="android.support.PARENT_ACTIVITY"
                 android:value="com.example.buk.MainMenuActivity" />
+		</activity>
+		<activity
+            android:name="com.example.buk.SearchForBookActivity"
+            android:label="@string/title_activity_search_for_book"
+            android:parentActivityName="com.example.buk.MainMenuActivity" >
+            <meta-data
+                android:name="android.support.PARENT_ACTIVITY"
+                android:value="com.example.buk.MainMenuActivity" />
         </activity>
     </application>
 

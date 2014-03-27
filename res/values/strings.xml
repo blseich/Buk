@@ -134,5 +134,6 @@
     <string name="title_activity_book_view">BookView</string>
     <string name="title_activity_create_list">CreateList</string>
     <string name="title_activity_after_scan_list_picker">AfterScanListPicker</string>
+    <string name="title_activity_search_for_book">SearchForBookActivity</string>
 
 </resources>
