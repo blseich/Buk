@@ -13,10 +13,6 @@ import android.widget.ImageView;
 import android.widget.RelativeLayout;
 
 public class MainActivity extends Activity {
-	
-	//CODE TO DELETE
-	BookHelper tester = new BookHelper();
-	//END CODE TO DELETE
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {

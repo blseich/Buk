@@ -59,5 +59,10 @@ public class MainMenuActivity extends Activity {
 		}
 
 	}
+	
+	public void goToSearch(View view) {
+		Intent intent = new Intent(this, SearchForBookActivity.class);
+		startActivity(intent);
+	}
 
 }

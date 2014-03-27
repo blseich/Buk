@@ -26,17 +26,17 @@ public class ViewListsActivity extends Activity {
 
 		BookList bookList1 = new BookList("Book List 1");
 		for (int i = 0; i < 5; i++) {
-			Book temp = new Book("title" + i, "isbn" + i, "author" + i);
+			Book temp = new Book(Integer.toString(i), "title" + i, "isbn" + i, "author" + i);
 			bookList1.addBook(temp);
 		}
 		BookList bookList2 = new BookList("Book List 2");
 		for (int i = 5; i < 10; i++) {
-			Book temp = new Book("title" + i, "isbn" + i, "author" + i);
+			Book temp = new Book(Integer.toString(i), "title" + i, "isbn" + i, "author" + i);
 			bookList2.addBook(temp);
 		}
 		BookList bookList3 = new BookList("Book List 3");
 		for (int i = 10; i < 15; i++) {
-			Book temp = new Book("title" + i, "isbn" + i, "author" + i);
+			Book temp = new Book(Integer.toString(i), "title" + i, "isbn" + i, "author" + i);
 			bookList3.addBook(temp);
 		}
 		shelf.add(bookList1);

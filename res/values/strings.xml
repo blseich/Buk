@@ -131,5 +131,6 @@
     <string name="wifi_ssid_label">Network Name</string>
     <string name="wifi_type_label">Type</string>
     <string name="title_activity_list_view">List View</string>
+    <string name="title_activity_search_for_book">SearchForBookActivity</string>
 
 </resources>
