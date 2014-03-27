@@ -5,6 +5,7 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.os.Debug;
 import android.util.Log;
+import android.view.KeyEvent;
 import android.view.Menu;
 import android.view.View;
 
@@ -38,9 +39,9 @@ public class MainMenuActivity extends Activity {
 				"QR_CODE_MODE");
 		startActivityForResult(intent, 0);
 	}
-	
-	//on click of the button, start the list activity
-	public void showLists(View view){
+
+	// on click of the button, start the list activity
+	public void showLists(View view) {
 		Intent intent = new Intent(this, ViewListsActivity.class);
 		startActivity(intent);
 	}
@@ -57,8 +58,11 @@ public class MainMenuActivity extends Activity {
 				Log.i("xZing", "Cancelled");
 			}
 		}
-		Intent intent2 = new Intent(this, AfterScanListPicker.class);
-		startActivity(intent2); //start list picker
+		
+		//if (keyCode != KeyEvent.KEYCODE_BACK)) {
+			Intent intent2 = new Intent(this, AfterScanListPicker.class);
+			startActivity(intent2); // start list picker
+		//}
 	}
 
 }
