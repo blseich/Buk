@@ -133,5 +133,6 @@
     <string name="title_activity_list_view">List View</string>
     <string name="title_activity_book_view">BookView</string>
     <string name="title_activity_create_list">CreateList</string>
+    <string name="title_activity_after_scan_list_picker">AfterScanListPicker</string>
 
 </resources>

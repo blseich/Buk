@@ -85,6 +85,14 @@
                 android:name="android.support.PARENT_ACTIVITY"
                 android:value="com.example.buk.ViewListsActivity" />
         </activity>
+        <activity
+            android:name="com.example.buk.AfterScanListPicker"
+            android:label="@string/title_activity_after_scan_list_picker"
+            android:parentActivityName="com.example.buk.MainMenuActivity" >
+            <meta-data
+                android:name="android.support.PARENT_ACTIVITY"
+                android:value="com.example.buk.MainMenuActivity" />
+        </activity>
     </application>
 
 </manifest>
