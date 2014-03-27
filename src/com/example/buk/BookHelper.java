@@ -82,15 +82,18 @@ public class BookHelper {
 	            industryIdentifiers = volumeInfo.getJSONArray("industryIdentifiers");
 	            
 	            //Parse JSON Objects into Book Object
-	            searchResult = new Book(json.getString("id"), volumeInfo.getString("title"), industryIdentifiers.getJSONObject(0).getString("identifier"), volumeInfo.getJSONArray("authors").get(0).toString());
+	            searchResult = new Book(1, volumeInfo.getString("title"), industryIdentifiers.getJSONObject(0).getString("identifier"), volumeInfo.getJSONArray("authors").get(0).toString());
 	            searchResult.setDescription(volumeInfo.getString("description"));
 	            try {
 	            	searchResult.setPrice(saleInfo.getJSONObject("listPrice").getString("amount"));
 	            } catch (JSONException e) {
 	            	searchResult.setPrice("Not For Sale");
 	            }
-	            searchResult.setImgUrls(volumeInfo.getJSONObject("imageLinks"));
-	            searchResult.setThumbnail(LoadImageFromWebOperations(searchResult.getUrl("thumbnail")));
+	            try {
+	            	searchResult.setImgUrl(volumeInfo.getJSONObject("imageLinks").getString("thumbnail"));
+	            } catch (JSONException e) {
+	            	searchResult.setImgUrl("https://cdn.dinafem.org/static/images/site/no-photo.jpg");
+	            }
 	            //Result is set as SUCCESS causes crash if any exceptions pop up
 	            result = "SUCCESS";
 	            } catch (ClientProtocolException e) {             

@@ -64,11 +64,13 @@ public class SearchForBookActivity extends Activity {
 	public void testSearch(View view){
 		class GetBook extends AsyncTask<String, Integer, String> {
 			private Book book = null;
+			Drawable imgFromUrl;
 			
 			@Override
 			protected String doInBackground(String... params) {
 				BookHelper bookHelper = new BookHelper();
 				book = bookHelper.searchForBook("Atlas Shrugged");
+				imgFromUrl = bookHelper.LoadImageFromWebOperations(book.getImgUrl());
 				return null;
 			}
 			
@@ -86,7 +88,7 @@ public class SearchForBookActivity extends Activity {
 				description.setText(book.getDescription());
 				price.setText(book.getPrice());
 				
-				Drawable dr = book.getThumbnail();
+				Drawable dr = imgFromUrl;
 				Bitmap bitmap = ((BitmapDrawable) dr).getBitmap();
 				Drawable d = new BitmapDrawable(getResources(), Bitmap.createScaledBitmap(bitmap, dr.getIntrinsicWidth()*5, dr.getIntrinsicHeight()*5, true));
 				

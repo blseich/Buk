@@ -1,20 +1,43 @@
 package com.example.buk;
 
+import java.util.ArrayList;
+import java.util.List;
+
 import android.app.Activity;
+import android.content.Context;
 import android.content.Intent;
+import android.database.sqlite.SQLiteDatabase;
 import android.os.Bundle;
-import android.os.Debug;
 import android.util.Log;
-import android.view.KeyEvent;
 import android.view.Menu;
 import android.view.View;
 
+import com.objects.buk.Book;
+import com.objects.buk.BookList;
+import com.objects.buk.BookStorage;
+
 public class MainMenuActivity extends Activity {
 
+	private Context context = this;
+	
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.main_menu_layout);
+		BookStorage storage = new BookStorage(context);
+		
+			BookList bookList1 = new BookList(1, "Book List 1");
+			for (int i = 0; i < 5; i++) {
+				Book temp = new Book(i, "title" + i, "isbn" + i, "author" + i);
+				temp.setDescription("description" + i);
+				temp.setImgUrl("imgUrl"+i);
+				temp.setPrice("price"+i);
+				bookList1.addBook(temp);
+			}
+			//storage.addBookList(bookList1);
+			BookList bookListReturned = storage.getBookList(8);
+			String toDelete = new String();
+			System.out.println(toDelete);
 	}
 
 	@Override
