@@ -57,7 +57,8 @@ public class MainMenuActivity extends Activity {
 				Log.i("xZing", "Cancelled");
 			}
 		}
-
+		Intent intent2 = new Intent(this, AfterScanListPicker.class);
+		startActivity(intent2); //start list picker
 	}
 
 }

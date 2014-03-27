@@ -4,8 +4,10 @@ import android.os.Bundle;
 import android.app.Activity;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.view.View;
 import android.support.v4.app.NavUtils;
 import android.annotation.TargetApi;
+import android.content.Intent;
 import android.os.Build;
 
 public class AfterScanListPicker extends Activity {
@@ -16,6 +18,11 @@ public class AfterScanListPicker extends Activity {
 		setContentView(R.layout.activity_after_scan_list_picker);
 		// Show the Up button in the action bar.
 		setupActionBar();
+	}
+	
+	public void showCreateList(View view){
+		Intent intent = new Intent(this, CreateList.class);
+		startActivity(intent);
 	}
 
 	/**
