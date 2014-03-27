@@ -51,5 +51,10 @@ public class ViewListsActivity extends Activity {
 		Intent intent = new Intent(this, ListView.class);
 		startActivity(intent);
 	}
+	
+	public void createList(View view) {
+		Intent intent = new Intent(this, CreateList.class);
+		startActivity(intent);
+	}
 
 }

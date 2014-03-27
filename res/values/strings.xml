@@ -132,5 +132,6 @@
     <string name="wifi_type_label">Type</string>
     <string name="title_activity_list_view">List View</string>
     <string name="title_activity_book_view">BookView</string>
+    <string name="title_activity_create_list">CreateList</string>
 
 </resources>

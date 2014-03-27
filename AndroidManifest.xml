@@ -77,6 +77,14 @@
                 android:name="android.support.PARENT_ACTIVITY"
                 android:value="com.example.buk.ListView" />
         </activity>
+        <activity
+            android:name="com.example.buk.CreateList"
+            android:label="@string/title_activity_create_list"
+            android:parentActivityName="com.example.buk.ViewListsActivity" >
+            <meta-data
+                android:name="android.support.PARENT_ACTIVITY"
+                android:value="com.example.buk.ViewListsActivity" />
+        </activity>
     </application>
 
 </manifest>
