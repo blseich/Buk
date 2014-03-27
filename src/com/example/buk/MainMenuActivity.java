@@ -60,5 +60,10 @@ public class MainMenuActivity extends Activity {
 		Intent intent2 = new Intent(this, AfterScanListPicker.class);
 		startActivity(intent2); //start list picker
 	}
+	
+	public void goToSearch(View view) {
+		Intent intent = new Intent(this, SearchForBookActivity.class);
+		startActivity(intent);
+	}
 
 }
