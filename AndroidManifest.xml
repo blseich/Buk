@@ -50,7 +50,16 @@
             android:screenOrientation="landscape"
             android:theme="@android:style/Theme.NoTitleBar.Fullscreen"
             android:windowSoftInputMode="stateAlwaysHidden" >
-          
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN" />
+
+                <category android:name="android.intent.category.LAUNCHER" />
+            </intent-filter>
+            <intent-filter>
+                <action android:name="com.google.zxing.client.android.SCAN" />
+
+                <category android:name="android.intent.category.DEFAULT" />
+            </intent-filter>
         </activity>
         <activity
             android:name="com.example.buk.ListView"
@@ -79,14 +88,6 @@
         <activity
             android:name="com.example.buk.AfterScanListPicker"
             android:label="@string/title_activity_after_scan_list_picker"
-            android:parentActivityName="com.example.buk.MainMenuActivity" >
-            <meta-data
-                android:name="android.support.PARENT_ACTIVITY"
-                android:value="com.example.buk.MainMenuActivity" />
-		</activity>
-		<activity
-            android:name="com.example.buk.SearchForBookActivity"
-            android:label="@string/title_activity_search_for_book"
             android:parentActivityName="com.example.buk.MainMenuActivity" >
             <meta-data
                 android:name="android.support.PARENT_ACTIVITY"
