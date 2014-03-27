@@ -4,8 +4,10 @@ import android.os.Bundle;
 import android.app.Activity;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.view.View;
 import android.support.v4.app.NavUtils;
 import android.annotation.TargetApi;
+import android.content.Intent;
 import android.os.Build;
 
 public class ListView extends Activity {
@@ -26,6 +28,11 @@ public class ListView extends Activity {
 		if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.HONEYCOMB) {
 			getActionBar().setDisplayHomeAsUpEnabled(true);
 		}
+	}
+	
+	public void showBook(View view){
+		Intent intent = new Intent(this, BookView.class);
+		startActivity(intent);
 	}
 
 	@Override
