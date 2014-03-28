@@ -132,12 +132,21 @@ public class BookStorage extends SQLiteOpenHelper {
 	
 	//Update Book List
 	public int updateBookList(BookList bookList){
-		return 0;
+		SQLiteDatabase db = this.getWritableDatabase();
+		
+		ContentValues values = new ContentValues();
+		values.put(KEY_BOOK_LIST_NAME, bookList.getListTitle());
+		
+		return db.update(BOOK_LIST_TABLE_NAME, values, KEY_BOOK_LIST_ID + " = ?",
+				new String[] {String.valueOf(bookList.getId())});
 	}
 	
 	//Delete Book List
 	public void deleteBookList(BookList bookList){
-		
+		SQLiteDatabase db = this.getWritableDatabase();
+		db.delete(BOOK_LIST_TABLE_NAME, KEY_BOOK_LIST_ID + " = ?",
+				new String[] {String.valueOf(bookList.getId())});
+		db.close();
 	}
 	
 	//Get all Books in a particular List

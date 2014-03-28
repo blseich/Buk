@@ -34,4 +34,8 @@ public class BookList {
 		list.add(book);
 	}
 	
+	public int getId(){
+		return id;
+	}
+	
 }

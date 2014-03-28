@@ -36,6 +36,16 @@ public class MainMenuActivity extends Activity {
 			}
 			//storage.addBookList(bookList1);
 			BookList bookListReturned = storage.getBookList(8);
+			bookListReturned.setListTitle("BRAND NEW TITLE");
+			int check = storage.updateBookList(bookListReturned);
+		
+			BookList invisible = new BookList(0, "THIS SHOULDN'T SHOW UP!!!"); 
+			storage.addBookList(invisible);
+			List<BookList> invisibleShowsUp = storage.getAllBookLists();
+			
+			invisible = storage.getBookList(11);
+			storage.deleteBookList(invisible);
+			
 			List<BookList> allBookLists = storage.getAllBookLists();
 			String toDelete = new String();
 			System.out.println(toDelete);
