@@ -36,6 +36,7 @@ public class MainMenuActivity extends Activity {
 			}
 			//storage.addBookList(bookList1);
 			BookList bookListReturned = storage.getBookList(8);
+			List<BookList> allBookLists = storage.getAllBookLists();
 			String toDelete = new String();
 			System.out.println(toDelete);
 	}

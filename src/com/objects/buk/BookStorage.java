@@ -113,7 +113,21 @@ public class BookStorage extends SQLiteOpenHelper {
 	
 	//Get All Book Lists
 	public List<BookList> getAllBookLists(){
-		return null;
+		List<BookList> allBookLists = new ArrayList<BookList>();
+		//Select All Query
+		String selectQuery = "SELECT * FROM " + BOOK_LIST_TABLE_NAME;
+		
+		SQLiteDatabase db = this.getWritableDatabase();
+		Cursor cursor = db.rawQuery(selectQuery, null);
+		
+		if(cursor.moveToFirst()) {
+			do {
+				BookList bookList = new BookList(Integer.parseInt(cursor.getString(0)), cursor.getString(1));
+				allBookLists.add(bookList);
+			} while (cursor.moveToNext());
+		}
+		
+		return allBookLists;
 	}
 	
 	//Update Book List
@@ -152,5 +166,6 @@ public class BookStorage extends SQLiteOpenHelper {
 		
 		return bookList;
 	}
+
 	
 }
