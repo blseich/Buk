@@ -165,7 +165,7 @@ public class BookStorage extends SQLiteOpenHelper {
 				Book book = new Book(
 						Integer.parseInt(cursor.getString(0)),
 						cursor.getString(cursor.getColumnIndex(KEY_TITLE)), 
-						cursor.getString(cursor.getColumnIndex(KEY_AUTHOR)), "isbn");
+						cursor.getString(cursor.getColumnIndex(KEY_AUTHOR)));
 				book.setPrice(cursor.getString(cursor.getColumnIndex(KEY_PRICE)));
 				book.setDescription(cursor.getString(cursor.getColumnIndex(KEY_DESCRIPTION)));
 				book.setImgUrl(cursor.getString(cursor.getColumnIndex(KEY_IMG_URL)));
@@ -175,6 +175,61 @@ public class BookStorage extends SQLiteOpenHelper {
 		
 		return bookList;
 	}
-
+	
+	public void addABook(Book book, long listId) {
+		SQLiteDatabase db = this.getWritableDatabase();
+		ContentValues values = new ContentValues();
+		
+		values.put(KEY_TITLE, book.getTitle());
+		values.put(KEY_AUTHOR, book.getAuthor());
+		values.put(KEY_PRICE, book.getPrice());
+		values.put(KEY_DESCRIPTION, book.getDescription());
+		values.put(KEY_IMG_URL, book.getImgUrl());
+		values.put(KEY_BOOK_LIST_ID, listId);
+		db.insert(BOOK_TABLE_NAME, null, values);
+	}
+	
+	public Book getABook(int bookId) {
+		SQLiteDatabase db = this.getReadableDatabase();
+		Cursor cursor = db.query(BOOK_TABLE_NAME, 
+				new String[]{ KEY_BOOK_ID, KEY_TITLE, KEY_AUTHOR, KEY_PRICE, KEY_DESCRIPTION, KEY_IMG_URL },
+				KEY_BOOK_ID + "=?",
+				new String[] { String.valueOf(bookId)},
+				null, null, null, null);
+		if (cursor != null) {
+			cursor.moveToFirst();
+		}
+		Book book = new Book(
+				Integer.parseInt(cursor.getString(cursor.getColumnIndex("KEY_BOOK_ID"))),
+				cursor.getString(cursor.getColumnIndex("KEY_TITLE")),
+				cursor.getString(cursor.getColumnIndex("KEY_AUTHOR")));
+		book.setDescription(cursor.getString(cursor.getColumnIndex("KEY_DESCRIPTION")));
+		book.setImgUrl(cursor.getString(cursor.getColumnIndex("KEY_IMG_URL")));
+		book.setPrice(cursor.getString(cursor.getColumnIndex("KEY_PRICE")));
+		return book;
+	}
+	
+	public void deleteBook(Book book){
+		SQLiteDatabase db = this.getWritableDatabase();
+		db.delete(BOOK_TABLE_NAME, KEY_BOOK_ID + " = ?",
+				new String[] {String.valueOf(book.getId())});
+		db.close();
+	}
+	
+	//Update Book List
+	public int updateBook(Book book, int listId){
+		SQLiteDatabase db = this.getWritableDatabase();
+		
+		ContentValues values = new ContentValues();
+		values.put(KEY_TITLE, book.getTitle());
+		values.put(KEY_AUTHOR, book.getAuthor());
+		values.put(KEY_PRICE, book.getPrice());
+		values.put(KEY_DESCRIPTION, book.getDescription());
+		values.put(KEY_IMG_URL, book.getImgUrl());
+		values.put(KEY_BOOK_LIST_ID, listId);
+		
+		return db.update(BOOK_LIST_TABLE_NAME, values, KEY_BOOK_LIST_ID + " = ?",
+				new String[] {String.valueOf(book.getId())});
+	}
 	
 }

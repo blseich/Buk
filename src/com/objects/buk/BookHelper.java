@@ -1,4 +1,4 @@
-package com.example.buk;
+package com.objects.buk;
 
 import java.io.IOException;
 import java.io.InputStream;
@@ -18,7 +18,6 @@ import org.json.JSONObject;
 import android.graphics.drawable.Drawable;
 import android.os.AsyncTask;
 
-import com.objects.buk.Book;
 
 public class BookHelper {
 	
@@ -82,7 +81,7 @@ public class BookHelper {
 	            industryIdentifiers = volumeInfo.getJSONArray("industryIdentifiers");
 	            
 	            //Parse JSON Objects into Book Object
-	            searchResult = new Book(1, volumeInfo.getString("title"), industryIdentifiers.getJSONObject(0).getString("identifier"), volumeInfo.getJSONArray("authors").get(0).toString());
+	            searchResult = new Book(1, volumeInfo.getString("title"), volumeInfo.getJSONArray("authors").get(0).toString());
 	            searchResult.setDescription(volumeInfo.getString("description"));
 	            try {
 	            	searchResult.setPrice(saleInfo.getJSONObject("listPrice").getString("amount"));

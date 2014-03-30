@@ -8,17 +8,15 @@ import android.graphics.drawable.Drawable;
 public class Book {
 	final private int id;
 	final private String title;
-	final private String isbn;
 	final private String author;
 	private String description;
 	private String price;
 	private String imgUrl;
 	
 	//set book information
-	public Book(int id, String bookName, String bookId, String writer){
+	public Book(int id, String bookName, String writer){
 		this.id = id;
 		this.title = bookName;
-		this.isbn = bookId;
 		this.author = writer;
 		
 	}
@@ -47,10 +45,10 @@ public class Book {
 		return title;
 	}
 
-	public String getIsbn() {
-		return isbn;
+	public int getId() {
+		return id;
 	}
-
+	
 	public String getImgUrl() {
 		return imgUrl;
 	}

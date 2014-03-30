@@ -28,7 +28,7 @@ public class MainMenuActivity extends Activity {
 		
 			BookList bookList1 = new BookList(1, "Book List 1");
 			for (int i = 0; i < 5; i++) {
-				Book temp = new Book(i, "title" + i, "isbn" + i, "author" + i);
+				Book temp = new Book(i, "title" + i, "author" + i);
 				temp.setDescription("description" + i);
 				temp.setImgUrl("imgUrl"+i);
 				temp.setPrice("price"+i);

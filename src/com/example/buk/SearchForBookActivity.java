@@ -16,6 +16,7 @@ import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.objects.buk.Book;
+import com.objects.buk.BookHelper;
 
 public class SearchForBookActivity extends Activity {
 
