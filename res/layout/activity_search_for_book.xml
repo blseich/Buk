@@ -8,57 +8,88 @@
     android:paddingTop="@dimen/activity_vertical_margin"
     tools:context=".SearchForBookActivity" >
 
+    
+    <TextView
+        android:id="@+id/keywordSearchTitle"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentTop="true"
+        android:text="Enter keywords to search by:"/>
+   	<EditText
+        android:id="@+id/keywordSearch"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/keywordSearchTitle"
+        android:ems="10" >
+
+        <requestFocus />
+    </EditText>
     <Button
-        android:id="@+id/searchButton"
+        android:id="@+id/keywordSearchButton"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:layout_below="@+id/keywordSearch"
         android:layout_centerHorizontal="true"
-        android:onClick="testSearch"
-        android:text="Search For Atlas Shrugged" />
-
-    <TextView
+        android:text="Execute Search"
+        android:onClick="executeSearch"/>
+	        
+    <ScrollView 
+      	android:id="@+id/searchResult"
+      	android:layout_height="fill_parent"
+      	android:layout_width="match_parent"
+      	android:layout_below="@+id/keywordSearchButton">
+      	<RelativeLayout
+      		android:id="@+id/searchResultContents"
+      		android:layout_height="fill_parent"
+      		android:layout_width="match_parent">
+        <TextView
         android:id="@+id/title"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_below="@+id/searchButton"
-        android:layout_marginTop="14dp"
+        android:layout_alignParentTop="true"
         android:text=""
         android:textAppearance="?android:attr/textAppearanceLarge" />
 
-    <ImageView
-        android:id="@+id/image"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_alignLeft="@+id/title"
-        android:layout_centerVertical="true"
-        android:src="@android:drawable/dark_header" />
+	    <TextView
+	        android:id="@+id/author"
+	        android:layout_width="wrap_content"
+	        android:layout_height="wrap_content"
+	        android:layout_alignLeft="@+id/title"
+	        android:layout_below="@+id/title"
+	        android:text=""
+	        android:textAppearance="?android:attr/textAppearanceMedium" />
+	    
+	   	<ImageView
+	        android:id="@+id/image"
+	        android:layout_width="wrap_content"
+	        android:layout_height="wrap_content"
+	        android:layout_alignLeft="@+id/title"
+	        android:layout_below="@+id/author"
+	        android:src="@android:drawable/dark_header" />
+	
+	
+	    <TextView
+	        android:id="@+id/price"
+	        android:layout_width="wrap_content"
+	        android:layout_height="wrap_content"
+	        android:layout_alignParentRight="true"
+	        android:layout_alignTop="@+id/author"
+	        android:text=""
+	        android:textAppearance="?android:attr/textAppearanceSmall" />
+	
+	    <TextView
+	        android:id="@+id/desription"
+	        android:layout_width="wrap_content"
+	        android:layout_height="wrap_content"
+	        android:layout_alignLeft="@+id/image"
+	        android:layout_below="@+id/image"
+	        android:layout_marginTop="25dp"
+	        android:text="" />
 
-    <TextView
-        android:id="@+id/author"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_alignLeft="@+id/title"
-        android:layout_below="@+id/title"
-        android:layout_marginTop="16dp"
-        android:text=""
-        android:textAppearance="?android:attr/textAppearanceMedium" />
 
-    <TextView
-        android:id="@+id/price"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_alignRight="@+id/searchButton"
-        android:layout_alignTop="@+id/title"
-        android:text=""
-        android:textAppearance="?android:attr/textAppearanceSmall" />
-
-    <TextView
-        android:id="@+id/desription"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_alignLeft="@+id/image"
-        android:layout_below="@+id/image"
-        android:layout_marginTop="38dp"
-        android:text="TextView" />
+	    </RelativeLayout>
+    </ScrollView>
+    
 
 </RelativeLayout>

@@ -12,6 +12,7 @@ import android.support.v4.app.NavUtils;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
+import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.TextView;
 
@@ -62,15 +63,20 @@ public class SearchForBookActivity extends Activity {
 		return super.onOptionsItemSelected(item);
 	}
 	
-	public void testSearch(View view){
+	public void executeSearch(View view){
 		class GetBook extends AsyncTask<String, Integer, String> {
 			private Book book = null;
+			private String keywords;
 			Drawable imgFromUrl;
+			
+			public GetBook(String search) {
+				keywords = search;
+			}
 			
 			@Override
 			protected String doInBackground(String... params) {
 				BookHelper bookHelper = new BookHelper();
-				book = bookHelper.searchForBook("Atlas Shrugged");
+				book = bookHelper.searchForBook(keywords);
 				imgFromUrl = bookHelper.LoadImageFromWebOperations(book.getImgUrl());
 				return null;
 			}
@@ -98,7 +104,11 @@ public class SearchForBookActivity extends Activity {
 			
 		}
 
-		new GetBook().execute("1");
+		EditText searchBox = (EditText)findViewById(R.id.keywordSearch);
+		String search = searchBox.getText().toString();
+		if (search.length() > 0) {
+			new GetBook(search).execute("1");
+		}
 		
 	}
 	
