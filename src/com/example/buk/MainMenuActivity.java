@@ -24,31 +24,19 @@ public class MainMenuActivity extends Activity {
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.main_menu_layout);
-		BookStorage storage = new BookStorage(context);
+		BookStorage db = new BookStorage(this);
 		
-			BookList bookList1 = new BookList(1, "Book List 1");
-			for (int i = 0; i < 5; i++) {
-				Book temp = new Book(i, "title" + i, "author" + i);
-				temp.setDescription("description" + i);
-				temp.setImgUrl("imgUrl"+i);
-				temp.setPrice("price"+i);
-				bookList1.addBook(temp);
+		for(int i = 1; i < 11; i++){
+			BookList bookList = new BookList(0, "Book List " + i);
+			for(int j = i; j < 11; j++){
+				Book book = new Book(0, "Book " + i + "." + j, "Author " + i + "." + j);
+				book.setDescription("Description " + i + "." + j);
+				book.setPrice("Price " + i + "." + j);
+				bookList.addBook(book);
 			}
-			//storage.addBookList(bookList1);
-			BookList bookListReturned = storage.getBookList(8);
-			bookListReturned.setListTitle("BRAND NEW TITLE");
-			int check = storage.updateBookList(bookListReturned);
+			db.addBookList(bookList);
+		}
 		
-			BookList invisible = new BookList(0, "THIS SHOULDN'T SHOW UP!!!"); 
-			storage.addBookList(invisible);
-			List<BookList> invisibleShowsUp = storage.getAllBookLists();
-			
-			invisible = storage.getBookList(11);
-			storage.deleteBookList(invisible);
-			
-			List<BookList> allBookLists = storage.getAllBookLists();
-			String toDelete = new String();
-			System.out.println(toDelete);
 	}
 
 	@Override

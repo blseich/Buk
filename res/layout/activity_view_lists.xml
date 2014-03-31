@@ -5,15 +5,34 @@
     tools:context=".ViewListsActivity" >
 
     <TextView
-        android:id="@+id/textView3"
+        android:id="@+id/viewListsTitle"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_alignParentTop="true"
         android:layout_centerHorizontal="true"
         android:text="Bük Lists"
         android:textAppearance="?android:attr/textAppearanceLarge" />
+    
+    <ScrollView 
+       android:id="@+id/scrollView"
+       android:layout_width="match_parent"
+       android:layout_height="fill_parent"
+       android:layout_below="@+id/viewListsTitle"
+       android:layout_above="@+id/button1" >
+       
+        <RelativeLayout 
+            android:id="@+id/viewAllListsContainer"
+       		android:layout_width="match_parent"
+       		android:layout_height="match_parent" >
+            
+            
+        </RelativeLayout>
+        
+    </ScrollView>
+    
+    
 
-    <RelativeLayout
+   <!-- <RelativeLayout
         android:id="@+id/relativeLayout1"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
@@ -43,13 +62,13 @@
             android:layout_toRightOf="@+id/textView1"
             android:text="num"
             android:textAppearance="?android:attr/textAppearanceSmall" />
-    </RelativeLayout>
+    </RelativeLayout> -->
 
     <Button
         android:id="@+id/button1"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_alignLeft="@+id/relativeLayout1"
+        android:layout_alignParentLeft="true"
         android:layout_alignParentBottom="true"
         android:layout_marginBottom="29dp"
         android:text="Add List" 
@@ -60,7 +79,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_alignBottom="@+id/button1"
-        android:layout_alignRight="@+id/relativeLayout1"
+        android:layout_alignParentRight="true"
         android:text="Delete List" />
 
 </RelativeLayout>

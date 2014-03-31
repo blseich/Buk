@@ -232,4 +232,5 @@ public class BookStorage extends SQLiteOpenHelper {
 				new String[] {String.valueOf(book.getId())});
 	}
 	
+	
 }

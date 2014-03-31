@@ -14,6 +14,7 @@ import android.view.MenuItem;
 import android.view.View;
 import android.widget.EditText;
 import android.widget.ImageView;
+import android.widget.ScrollView;
 import android.widget.TextView;
 
 import com.objects.buk.Book;
@@ -70,7 +71,11 @@ public class SearchForBookActivity extends Activity {
 			Drawable imgFromUrl;
 			
 			public GetBook(String search) {
-				keywords = search;
+				keywords = search;			
+			}
+			
+			public Book retrieveSearchResult() {
+				return this.book;
 			}
 			
 			@Override
@@ -83,10 +88,11 @@ public class SearchForBookActivity extends Activity {
 			
 
 			@Override 
-			protected void onPostExecute(String result){     
+			protected void onPostExecute(String result){    
+				ScrollView searchResultViewer = (ScrollView)findViewById(R.id.searchResult);
 				TextView title = (TextView)findViewById(R.id.title);
 				TextView author = (TextView)findViewById(R.id.author);
-				TextView description = (TextView)findViewById(R.id.desription);
+				TextView description = (TextView)findViewById(R.id.description);
 				TextView price = (TextView)findViewById(R.id.price);
 				ImageView img = (ImageView)findViewById(R.id.image);
 				
@@ -99,7 +105,8 @@ public class SearchForBookActivity extends Activity {
 				Bitmap bitmap = ((BitmapDrawable) dr).getBitmap();
 				Drawable d = new BitmapDrawable(getResources(), Bitmap.createScaledBitmap(bitmap, dr.getIntrinsicWidth()*5, dr.getIntrinsicHeight()*5, true));
 				
-				img.setImageDrawable(d); 
+				img.setImageDrawable(d);
+				searchResultViewer.setVisibility(View.VISIBLE);
 			} 
 			
 		}
