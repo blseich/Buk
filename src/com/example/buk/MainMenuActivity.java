@@ -70,10 +70,11 @@ public class MainMenuActivity extends Activity {
 	}
 
 	public void onActivityResult(int requestCode, int resultCode, Intent intent) {
+		String contents = "";
 		if (requestCode == 0) {
 			if (resultCode == RESULT_OK) {
 				//THIS IS THE RESULT OF THE SCAN!!!!!!
-				String contents = intent.getStringExtra("SCAN_RESULT");
+				contents = intent.getStringExtra("SCAN_RESULT");
 				String format = intent.getStringExtra("SCAN_RESULT_FORMAT");
 				Log.i("xZing", "contents: " + contents + " format: " + format);
 				// Handle successful scan
@@ -84,7 +85,10 @@ public class MainMenuActivity extends Activity {
 		}
 		
 		//if (keyCode != KeyEvent.KEYCODE_BACK)) {
-			Intent intent2 = new Intent(this, AfterScanListPicker.class);
+			Intent intent2 = new Intent(this, SearchForBookActivity.class);
+			Bundle b = new Bundle();
+			b.putString("ISBN", contents);
+			intent2.putExtras(b);
 			startActivity(intent2); // start list picker
 		//}
 	}
