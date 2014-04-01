@@ -30,8 +30,7 @@ public class SearchForBookActivity extends Activity {
 		Intent intent = getIntent();
 		
 		Bundle b = intent.getExtras();
-		
-		if(b.get("ISBN") != null){
+		if(b != null && b.get("ISBN") != null){
 			EditText keywordSearch = (EditText)findViewById(R.id.keywordSearch);
 			keywordSearch.setText(b.get("ISBN").toString());
 			this.executeSearch(null);
