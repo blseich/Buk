@@ -6,6 +6,7 @@ import android.app.Activity;
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
+import android.view.View.OnClickListener;
 import android.widget.CheckBox;
 import android.widget.RelativeLayout;
 import android.widget.ScrollView;
@@ -48,6 +49,19 @@ public class ViewListsActivity extends Activity {
 			TextView numBooks = buildNumBooks(bookList);
 			CheckBox checkBox = buildCheckBox(bookList);
 			
+			singleList.setOnClickListener(new OnClickListener() {
+				
+				@Override
+				public void onClick(View v) {
+					Bundle b = new Bundle();
+					Intent intent = new Intent(getApplicationContext(), ListView.class);
+					int listId = v.getId();
+					b.putInt("listId", listId);
+					intent.putExtras(b);
+					startActivity(intent);
+				}
+			});
+			
 			singleList.addView(title);
 			singleList.addView(numBooks);
 			singleList.addView(checkBox);
@@ -82,6 +96,7 @@ public class ViewListsActivity extends Activity {
 		title.setText(bookList.getListTitle());
 		title.setTextSize(30);
 		title.setLayoutParams(params);
+		
 		
 		return title;		
 	}

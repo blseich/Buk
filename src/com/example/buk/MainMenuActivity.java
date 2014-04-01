@@ -32,6 +32,7 @@ public class MainMenuActivity extends Activity {
 				Book book = new Book(0, "Book " + i + "." + j, "Author " + i + "." + j);
 				book.setDescription("Description " + i + "." + j);
 				book.setPrice("Price " + i + "." + j);
+				book.setImgUrl("http://bks2.books.google.com/books?id=0gLzGn-LYAQC&printsec=frontcover&img=1&zoom=1&edge=curl&source=gbs_api");
 				bookList.addBook(book);
 			}
 			db.addBookList(bookList);

@@ -1,14 +1,29 @@
 package com.example.buk;
 
-import android.os.Bundle;
+import java.util.List;
+
+import android.annotation.TargetApi;
 import android.app.Activity;
+import android.content.Intent;
+import android.graphics.Bitmap;
+import android.graphics.drawable.BitmapDrawable;
+import android.graphics.drawable.Drawable;
+import android.os.AsyncTask;
+import android.os.Build;
+import android.os.Bundle;
+import android.support.v4.app.NavUtils;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
-import android.support.v4.app.NavUtils;
-import android.annotation.TargetApi;
-import android.content.Intent;
-import android.os.Build;
+import android.view.View.OnClickListener;
+import android.widget.ImageView;
+import android.widget.RelativeLayout;
+import android.widget.ScrollView;
+import android.widget.TextView;
+
+import com.objects.buk.Book;
+import com.objects.buk.BookHelper;
+import com.objects.buk.BookStorage;
 
 public class ListView extends Activity {
 
@@ -16,8 +31,131 @@ public class ListView extends Activity {
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.activity_list_view);
+		Intent intent = getIntent();
+		int listId = intent.getIntExtra("listId", 0);
+		BookStorage db = new BookStorage(this);
+		List<Book> allBooksInList = db.getAllBooksInBookList(listId);
+		ScrollView allBooks = (ScrollView)findViewById(R.id.allBooks);
+		RelativeLayout allBooksContainer = (RelativeLayout)allBooks.findViewById(R.id.allBooksContainer);
+		int previousId = 0;
+		
+		for(Book book : allBooksInList){
+			RelativeLayout.LayoutParams params = 
+					new RelativeLayout.LayoutParams(
+							RelativeLayout.LayoutParams.MATCH_PARENT,
+							RelativeLayout.LayoutParams.WRAP_CONTENT);
+			
+			RelativeLayout singleBook = new RelativeLayout(this);
+			singleBook.setId(book.getId());
+			
+			if(previousId > 0){
+				params.addRule(RelativeLayout.BELOW, previousId);
+			} else {
+				params.addRule(RelativeLayout.ALIGN_PARENT_TOP, 1);
+			}
+
+			ImageView thumbnail = buildThumbnail(book);
+			TextView title = buildBookTitle(book);
+			TextView author = buildBookAuthor(book);
+			
+//			singleBook.setOnClickListener(new OnClickListener() {
+//				
+//				@Override
+//				public void onClick(View v) {
+//					Bundle b = new Bundle();
+//					Intent intent = new Intent(getApplicationContext(), ListView.class);
+//					int listId = v.getId();
+//					b.putInt("listId", listId);
+//					intent.putExtras(b);
+//					startActivity(intent);
+//				}
+//			});
+			
+			singleBook.addView(thumbnail);
+			singleBook.addView(title);
+			singleBook.addView(author);
+			singleBook.setLayoutParams(params);
+			
+			allBooksContainer.addView(singleBook);
+			previousId = book.getId();
+		
+		}
+		
 		// Show the Up button in the action bar.
 		setupActionBar();
+	}
+
+	private TextView buildBookAuthor(Book book) {
+		TextView bookAuthor = new TextView(this);
+		RelativeLayout.LayoutParams params = 
+				new RelativeLayout.LayoutParams(
+						RelativeLayout.LayoutParams.WRAP_CONTENT,
+						RelativeLayout.LayoutParams.WRAP_CONTENT);
+		params.addRule(RelativeLayout.BELOW, book.getId()+2000);
+		params.addRule(RelativeLayout.ALIGN_LEFT, book.getId()+2000);
+		
+		bookAuthor.setText(book.getAuthor());
+		bookAuthor.setTextSize(15);
+		bookAuthor.setLayoutParams(params);
+		
+		return bookAuthor;
+	}
+	
+	private TextView buildBookTitle(Book book) {
+		TextView bookTitle = new TextView(this);
+		RelativeLayout.LayoutParams params = 
+				new RelativeLayout.LayoutParams(
+						RelativeLayout.LayoutParams.WRAP_CONTENT,
+						RelativeLayout.LayoutParams.WRAP_CONTENT);
+		params.addRule(RelativeLayout.LEFT_OF, book.getId()+1000);
+		params.addRule(RelativeLayout.ALIGN_TOP, book.getId()+1000);
+		
+		bookTitle.setId(book.getId()+2000);
+		bookTitle.setText(book.getTitle());
+		bookTitle.setTextSize(30);
+		bookTitle.setLayoutParams(params);
+		
+		
+		return bookTitle;
+	}
+	
+	private ImageView buildThumbnail(Book book){
+		class GetThumbnail extends AsyncTask<String, Integer, String> {
+			Drawable dr;
+			int imageId = 0;
+			String imgUrl;
+			
+			public GetThumbnail(String imgUrl, int imageId){
+				this.imgUrl = imgUrl;
+				this.imageId = imageId;
+			}
+			
+			@Override
+			protected String doInBackground(String... params) {
+				BookHelper bookHelper = new BookHelper();
+				dr = bookHelper.LoadImageFromWebOperations(imgUrl);
+				return null;
+			}
+			@Override 
+			protected void onPostExecute(String result){
+				Bitmap bitmap = ((BitmapDrawable) dr).getBitmap();
+				Drawable d = new BitmapDrawable(getResources(), Bitmap.createScaledBitmap(bitmap, dr.getIntrinsicWidth(), dr.getIntrinsicHeight(), true));
+				
+				ImageView thumbnail = (ImageView)findViewById(imageId);
+				thumbnail.setImageDrawable(dr);
+			}
+			
+		}
+		ImageView thumbnail = new ImageView(this);
+		RelativeLayout.LayoutParams params = 
+				new RelativeLayout.LayoutParams(
+						RelativeLayout.LayoutParams.WRAP_CONTENT,
+						RelativeLayout.LayoutParams.WRAP_CONTENT);
+		params.addRule(RelativeLayout.ALIGN_PARENT_TOP);
+		params.addRule(RelativeLayout.ALIGN_PARENT_LEFT);
+		thumbnail.setId(book.getId() + 1000);
+		new GetThumbnail(book.getImgUrl(), book.getId()+1000).execute("1");
+		return thumbnail;
 	}
 
 	/**
@@ -58,5 +196,6 @@ public class ListView extends Activity {
 		}
 		return super.onOptionsItemSelected(item);
 	}
+	
 
 }
