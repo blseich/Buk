@@ -2,6 +2,7 @@ package com.example.buk;
 
 import android.annotation.TargetApi;
 import android.app.Activity;
+import android.content.Intent;
 import android.graphics.Bitmap;
 import android.graphics.drawable.BitmapDrawable;
 import android.graphics.drawable.Drawable;
@@ -26,6 +27,14 @@ public class SearchForBookActivity extends Activity {
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.activity_search_for_book);
+		Intent intent = getIntent();
+		
+		Bundle b = intent.getExtras();
+		if(b != null && b.get("ISBN") != null){
+			EditText keywordSearch = (EditText)findViewById(R.id.keywordSearch);
+			keywordSearch.setText(b.get("ISBN").toString());
+			this.executeSearch(null);
+		}
 		// Show the Up button in the action bar.
 		setupActionBar();
 	}
