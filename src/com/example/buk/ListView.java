@@ -107,7 +107,7 @@ public class ListView extends Activity {
 				new RelativeLayout.LayoutParams(
 						RelativeLayout.LayoutParams.WRAP_CONTENT,
 						RelativeLayout.LayoutParams.WRAP_CONTENT);
-		params.addRule(RelativeLayout.LEFT_OF, book.getId()+1000);
+		params.addRule(RelativeLayout.RIGHT_OF, book.getId()+1000);
 		params.addRule(RelativeLayout.ALIGN_TOP, book.getId()+1000);
 		
 		bookTitle.setId(book.getId()+2000);
@@ -139,7 +139,7 @@ public class ListView extends Activity {
 			@Override 
 			protected void onPostExecute(String result){
 				Bitmap bitmap = ((BitmapDrawable) dr).getBitmap();
-				Drawable d = new BitmapDrawable(getResources(), Bitmap.createScaledBitmap(bitmap, dr.getIntrinsicWidth(), dr.getIntrinsicHeight(), true));
+				Drawable d = new BitmapDrawable(getResources(), Bitmap.createScaledBitmap(bitmap, dr.getIntrinsicWidth()*2, dr.getIntrinsicHeight()*2, true));
 				
 				ImageView thumbnail = (ImageView)findViewById(imageId);
 				thumbnail.setImageDrawable(dr);
