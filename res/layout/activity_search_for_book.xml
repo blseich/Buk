@@ -94,7 +94,8 @@
 	        android:layout_height="wrap_content"
 	        android:layout_below="@+id/description"
 	        android:layout_alignParentRight="true"
-	        android:text="Add Book To List"/>
+	        android:text="Add Book To List"
+	        android:onClick="onClickAddBookToList"/>
 
 	    </RelativeLayout>
     </ScrollView>
