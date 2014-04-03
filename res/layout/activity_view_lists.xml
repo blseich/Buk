@@ -32,7 +32,7 @@
     
     
 
-   <!-- <RelativeLayout
+    <RelativeLayout
         android:id="@+id/relativeLayout1"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
@@ -57,12 +57,12 @@
             android:id="@+id/textView2"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_alignBottom="@+id/textView1"
-            android:layout_marginLeft="50dp"
-            android:layout_toRightOf="@+id/textView1"
+            android:textColor="@color/forest_green"
+            android:layout_below="@+id/textView1"
+            android:layout_alignLeft="@+id/textView1"
             android:text="num"
             android:textAppearance="?android:attr/textAppearanceSmall" />
-    </RelativeLayout> -->
+    </RelativeLayout> 
 
     <Button
         android:id="@+id/button1"
