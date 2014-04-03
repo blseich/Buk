@@ -116,19 +116,26 @@ public class SearchForBookActivity extends Activity {
 				
 				img.setImageDrawable(d);
 				searchResultViewer.setVisibility(View.VISIBLE);
-			} 
-			
+			} 	
 		}
-
+		
 		EditText searchBox = (EditText)findViewById(R.id.keywordSearch);
 		String search = searchBox.getText().toString();
 		if (search.length() > 0) {
 			new GetBook(search).execute("1");
-		}
-		
+		}		
 	}
 	
-
-
+	/*
+	public void onClickAddBookToList(View v) 
+	{
+		Bundle b = new Bundle();
+		Intent intent = new Intent(getApplicationContext(), AfterScanListPicker.class);
+		int bookId = book.getId();
+		b.putInt("listId", bookId);
+		intent.putExtras(b);
+		startActivity(intent);
+	}
+	*/
 }
 
