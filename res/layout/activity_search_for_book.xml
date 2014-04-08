@@ -96,7 +96,8 @@
 	        android:layout_below="@+id/description"
 	        android:layout_alignParentRight="true"
 	        android:background="@drawable/btn_green"
-	        android:text="Add Book To List"/>
+	        android:text="Add Book To List"
+	        android:onClick="onClickAddBookToList"/>
 
 	    </RelativeLayout>
     </ScrollView>

@@ -13,6 +13,8 @@ import android.support.v4.app.NavUtils;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
+import android.view.View.OnClickListener;
+import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.ScrollView;
@@ -104,6 +106,7 @@ public class SearchForBookActivity extends Activity {
 				TextView description = (TextView)findViewById(R.id.description);
 				TextView price = (TextView)findViewById(R.id.price);
 				ImageView img = (ImageView)findViewById(R.id.image);
+				Button btn = (Button)findViewById(R.id.addBookToListButton);
 				
 				title.setText(book.getTitle());
 				author.setText(book.getAuthor());
@@ -116,19 +119,29 @@ public class SearchForBookActivity extends Activity {
 				
 				img.setImageDrawable(d);
 				searchResultViewer.setVisibility(View.VISIBLE);
-			} 
-			
+				
+				btn.setOnClickListener(new OnClickListener() {
+					
+					public void onClick(View v) {
+						Bundle b = new Bundle();
+						Intent intent = new Intent(getApplicationContext(), AfterScanListPicker.class);
+						int bookId = book.getId();
+						b.putInt("listId", bookId);
+						intent.putExtras(b);
+						startActivity(intent);		
+					}
+				});
+				
+			} 	
 		}
-
+		
 		EditText searchBox = (EditText)findViewById(R.id.keywordSearch);
 		String search = searchBox.getText().toString();
 		if (search.length() > 0) {
 			new GetBook(search).execute("1");
-		}
-		
+		}		
 	}
+
 	
-
-
 }
 
