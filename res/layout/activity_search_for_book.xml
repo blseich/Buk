@@ -32,6 +32,7 @@
         android:layout_below="@+id/keywordSearch"
         android:layout_centerHorizontal="true"
         android:text="Execute Search"
+        android:background="@drawable/btn_green"
         android:onClick="executeSearch"/>
 	        
     <ScrollView 
@@ -94,6 +95,7 @@
 	        android:layout_height="wrap_content"
 	        android:layout_below="@+id/description"
 	        android:layout_alignParentRight="true"
+	        android:background="@drawable/btn_green"
 	        android:text="Add Book To List"/>
 
 	    </RelativeLayout>

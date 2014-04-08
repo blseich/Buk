@@ -26,18 +26,18 @@ public class MainMenuActivity extends Activity {
 		setContentView(R.layout.main_menu_layout);
 		BookStorage db = new BookStorage(this);
 		
-		for(int i = 1; i < 11; i++){
-			BookList bookList = new BookList(0, "Book List " + i);
-			for(int j = i; j < 11; j++){
-				Book book = new Book(0, "Book " + i + "." + j, "Author " + i + "." + j);
-				book.setDescription("Description " + i + "." + j);
-				book.setPrice("Price " + i + "." + j);
-				book.setImgUrl("http://bks2.books.google.com/books?id=0gLzGn-LYAQC&printsec=frontcover&img=1&zoom=1&edge=curl&source=gbs_api");
-				bookList.addBook(book);
-			}
-			db.addBookList(bookList);
-		}
-		
+//		for(int i = 1; i < 11; i++){
+//			BookList bookList = new BookList(0, "Book List " + i);
+//			for(int j = i; j < 11; j++){
+//				Book book = new Book(0, "Book " + i + "." + j, "Author " + i + "." + j);
+//				book.setDescription("Description " + i + "." + j);
+//				book.setPrice("Price " + i + "." + j);
+//				book.setImgUrl("http://bks2.books.google.com/books?id=0gLzGn-LYAQC&printsec=frontcover&img=1&zoom=1&edge=curl&source=gbs_api");
+//				bookList.addBook(book);
+//			}
+//			db.addBookList(bookList);
+//		}
+//		
 	}
 
 	@Override
