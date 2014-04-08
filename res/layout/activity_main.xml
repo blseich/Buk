@@ -8,7 +8,7 @@
     android:paddingTop="@dimen/activity_vertical_margin"
     tools:context=".MainActivity"
     android:animateLayoutChanges="true"
-    android:background="#FFFFFF"
+    android:background="@drawable/parchmentpaper"
     android:id="@+id/load_layout">
     
     <ImageView
