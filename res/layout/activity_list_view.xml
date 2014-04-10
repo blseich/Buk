@@ -19,7 +19,7 @@
     <ScrollView
         android:id="@+id/allBooks"
         android:layout_width="fill_parent"
-        android:layout_height="match_parent"
+        android:layout_height="fill_parent"
         android:layout_below="@id/listTitle">
 		<RelativeLayout
 		    android:id="@+id/allBooksContainer"
@@ -28,6 +28,16 @@
 		    
 		</RelativeLayout>
     </ScrollView>
+  
+	<Button
+	    android:id="@+id/removeListButton"
+	    android:layout_width="wrap_content"
+	    android:layout_height="wrap_content"
+	    android:layout_alignParentBottom="true" 
+	    android:layout_alignParentRight="true"
+        android:background="@drawable/btn_green"
+        android:text="Remove List"
+        android:onClick="removeList"/>
 
    
 

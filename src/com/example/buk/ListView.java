@@ -2,8 +2,11 @@ package com.example.buk;
 
 import java.util.List;
 
+import android.annotation.SuppressLint;
 import android.annotation.TargetApi;
 import android.app.Activity;
+import android.app.AlertDialog;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.graphics.Bitmap;
 import android.graphics.drawable.BitmapDrawable;
@@ -23,17 +26,26 @@ import android.widget.TextView;
 
 import com.objects.buk.Book;
 import com.objects.buk.BookHelper;
+import com.objects.buk.BookList;
 import com.objects.buk.BookStorage;
 
 public class ListView extends Activity {
 
+	int listId = 0;
+	BookList bookList = null;
+	
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.activity_list_view);
 		Intent intent = getIntent();
-		int listId = intent.getIntExtra("listId", 0);
+		listId = intent.getIntExtra("listId", 0);
 		BookStorage db = new BookStorage(this);
+		
+		bookList = db.getBookList(listId);
+		TextView listTitle = (TextView)findViewById(R.id.listTitle);
+		listTitle.setText(bookList.getListTitle());
+		
 		List<Book> allBooksInList = db.getAllBooksInBookList(listId);
 		ScrollView allBooks = (ScrollView)findViewById(R.id.allBooks);
 		RelativeLayout allBooksContainer = (RelativeLayout)allBooks.findViewById(R.id.allBooksContainer);
@@ -58,18 +70,18 @@ public class ListView extends Activity {
 			TextView title = buildBookTitle(book);
 			TextView author = buildBookAuthor(book);
 			
-//			singleBook.setOnClickListener(new OnClickListener() {
-//				
-//				@Override
-//				public void onClick(View v) {
-//					Bundle b = new Bundle();
-//					Intent intent = new Intent(getApplicationContext(), ListView.class);
-//					int listId = v.getId();
-//					b.putInt("listId", listId);
-//					intent.putExtras(b);
-//					startActivity(intent);
-//				}
-//			});
+			singleBook.setOnClickListener(new OnClickListener() {
+				
+				@Override
+				public void onClick(View v) {
+					Bundle b = new Bundle();
+					Intent intent = new Intent(getApplicationContext(), BookView.class);
+					int bookId = v.getId();
+					b.putInt("bookId", bookId);
+					intent.putExtras(b);
+					startActivity(intent);
+				}
+			});
 			
 			singleBook.addView(thumbnail);
 			singleBook.addView(title);
@@ -83,6 +95,13 @@ public class ListView extends Activity {
 		
 		// Show the Up button in the action bar.
 		setupActionBar();
+	}
+	
+	@Override
+	public void onResume(){
+		Bundle b = new Bundle();
+		b.putInt("listId", listId);
+		onCreate(b);
 	}
 
 	private TextView buildBookAuthor(Book book) {
@@ -195,6 +214,37 @@ public class ListView extends Activity {
 			return true;
 		}
 		return super.onOptionsItemSelected(item);
+	}
+	
+	public void removeList(View V) {
+		showSimplePopUp();
+	}
+	
+	private void showSimplePopUp() {	
+		final BookStorage db = new BookStorage(this);
+		
+		 AlertDialog.Builder helpBuilder = new AlertDialog.Builder(this);
+
+        helpBuilder.setTitle("Confirmation");
+        helpBuilder.setMessage("Are you sure you want to remove " + bookList.getListTitle() + "?");
+
+		 helpBuilder.setNegativeButton("Cancel",
+				 new DialogInterface.OnClickListener() {
+			 
+			 public void onClick(DialogInterface dialog, int which) {
+				 //Just close dialog box
+			 }
+		 });
+		 helpBuilder.setPositiveButton("Confirm",
+		   new DialogInterface.OnClickListener() {
+			 
+			 @SuppressLint("NewApi") public void onClick(DialogInterface dialog, int which) {
+				 db.deleteBookList(bookList);
+				 finish();
+			 }	
+		 });
+		 AlertDialog helpDialog = helpBuilder.create();
+		 helpDialog.show();
 	}
 	
 

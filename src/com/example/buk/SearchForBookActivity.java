@@ -125,8 +125,11 @@ public class SearchForBookActivity extends Activity {
 					public void onClick(View v) {
 						Bundle b = new Bundle();
 						Intent intent = new Intent(getApplicationContext(), AfterScanListPicker.class);
-						int bookId = book.getId();
-						b.putInt("listId", bookId);
+						b.putString("title", book.getTitle());
+						b.putString("author", book.getAuthor());
+						b.putString("description", book.getDescription());
+						b.putString("price",book.getPrice());
+						b.putString("imgUrl", book.getImgUrl());
 						intent.putExtras(b);
 						startActivity(intent);		
 					}

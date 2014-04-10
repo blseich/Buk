@@ -7,40 +7,66 @@
     android:paddingRight="@dimen/activity_horizontal_margin"
     android:paddingTop="@dimen/activity_vertical_margin"
     tools:context=".BookView" >
-
-    <TextView
-        android:id="@+id/bookTitle"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_alignParentLeft="true"
-        android:layout_alignParentTop="true"
-        android:text="Book Title"
-        android:textAppearance="?android:attr/textAppearanceLarge" />
-
-    <ImageView
-        android:id="@+id/bookCover"
-        android:layout_width="100dp"
-        android:layout_height="150dp"
-        android:layout_alignParentLeft="true"
-        android:layout_below="@+id/bookTitle"
-        android:src="@drawable/atlasshrugged" />
-
-    <TextView
-        android:id="@+id/bookAuthor"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_alignBaseline="@+id/bookTitle"
-        android:layout_alignBottom="@+id/bookTitle"
-        android:layout_centerHorizontal="true"
-        android:text="Author Name"
-        android:textAppearance="?android:attr/textAppearanceSmall" />
-
-    <TextView
-        android:id="@+id/bookDescription"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_centerHorizontal="true"
-        android:layout_centerVertical="true"
-        android:text="Book Description" />
+    
+	<ScrollView
+	    android:id="@+id/bookScroller"
+	    android:layout_width="match_parent"
+	    android:layout_height="match_parent">
+    
+	    <RelativeLayout
+	        android:id="@+id/bookContainer"
+	        android:layout_width="match_parent"
+	        android:layout_height="match_parent">
+		    <TextView
+		        android:id="@+id/bookTitle"
+		        android:layout_width="wrap_content"
+		        android:layout_height="wrap_content"
+		        android:layout_alignParentLeft="true"
+		        android:layout_alignParentTop="true"
+		        android:text="Book Title"
+		        android:textAppearance="?android:attr/textAppearanceLarge" />
+		
+		    <ImageView
+		        android:id="@+id/bookCover"
+		        android:layout_width="100dp"
+		        android:layout_height="150dp"
+		        android:layout_alignParentLeft="true"
+		        android:layout_below="@+id/bookAuthor"/>
+		
+		    <TextView
+		        android:id="@+id/bookAuthor"
+		        android:layout_width="wrap_content"
+		        android:layout_height="wrap_content"
+				android:layout_below="@+id/bookTitle"
+		        android:layout_alignLeft="@+id/bookTitle"
+		        android:text="Author Name"
+		        android:textAppearance="?android:attr/textAppearanceSmall" />
+		
+		    <TextView
+		        android:id="@+id/bookPrice"
+		        android:layout_width="wrap_content"
+		        android:layout_height="wrap_content"
+		        android:layout_alignTop="@+id/bookAuthor"
+		        android:layout_alignParentRight="true" />
+		    
+		    <TextView
+		        android:id="@+id/bookDescription"
+		        android:layout_width="wrap_content"
+		        android:layout_height="wrap_content"
+		        android:layout_below="@+id/bookCover"
+		        android:text="Book Description" />
+		    
+		    <Button
+		        android:id="@+id/removeBookButton"
+		        android:layout_width="wrap_content"
+		        android:layout_height="wrap_content"
+        		android:background="@drawable/btn_green"
+		        android:text="Remove Book"
+		        android:layout_below="@+id/bookDescription"
+		        android:layout_alignParentRight="true"
+		        android:onClick="removeBook"/>
+		    
+	    </RelativeLayout>
+    </ScrollView>
 
 </RelativeLayout>

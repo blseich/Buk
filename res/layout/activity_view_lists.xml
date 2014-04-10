@@ -34,30 +34,6 @@
             android:layout_height="wrap_content"
             android:layout_marginTop="40dp" >
 
-            <TextView
-                android:id="@+id/textView1"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:clickable="true"
-                android:onClick="showList"
-                android:text="Dumbdumb List"
-                android:textAppearance="?android:attr/textAppearanceLarge" />
-
-            <CheckBox
-                android:id="@+id/checkBox1"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_alignParentRight="true" />
-
-            <TextView
-                android:id="@+id/textView2"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_alignLeft="@+id/textView1"
-                android:layout_below="@+id/textView1"
-                android:text="num"
-                android:textAppearance="?android:attr/textAppearanceSmall"
-                android:textColor="@color/forest_green" />
         </RelativeLayout>
 
     <Button
@@ -67,7 +43,7 @@
         android:layout_alignParentBottom="true"
         android:layout_alignParentLeft="true"
         android:layout_marginBottom="29dp"
-        android:onClick="createList"
+        android:onClick="addList"
         android:background="@drawable/btn_green"
         android:text="Add List" />
 

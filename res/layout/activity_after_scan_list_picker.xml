@@ -8,6 +8,33 @@
     android:paddingTop="@dimen/activity_vertical_margin"
     tools:context=".AfterScanListPicker" >
 
+
+
+    <TextView
+        android:id="@+id/textView2"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_centerHorizontal="true"
+        android:layout_alignParentTop="true"
+        android:layout_marginTop="22dp"
+        android:text="Select a List"
+        android:textAppearance="?android:attr/textAppearanceLarge" />
+
+    <ScrollView
+        android:id="@+id/selectListScroller"
+        android:layout_width="match_parent"
+        android:layout_height="fill_parent"
+        android:layout_above="@+id/button1"
+        android:layout_below="@+id/textView2" >
+
+        <RelativeLayout
+            android:id="@+id/selectListContainer"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+            
+        </RelativeLayout>
+    </ScrollView>
+    
     <Button
         android:id="@+id/button1"
         android:layout_width="wrap_content"
@@ -15,27 +42,6 @@
         android:layout_alignParentBottom="true"
         android:layout_centerHorizontal="true"
         android:onClick="showCreateList"
-        android:layout_marginBottom="51dp"
         android:text="Create New List" />
-
-    <TextView
-        android:id="@+id/textView1"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_alignParentLeft="true"
-        android:layout_alignParentTop="true"
-        android:layout_marginTop="80dp"
-        android:text="A List"
-        android:textAppearance="?android:attr/textAppearanceLarge" />
-
-    <TextView
-        android:id="@+id/textView2"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_alignLeft="@+id/button1"
-        android:layout_alignParentTop="true"
-        android:layout_marginTop="22dp"
-        android:text="Select a List"
-        android:textAppearance="?android:attr/textAppearanceLarge" />
-
+    
 </RelativeLayout>

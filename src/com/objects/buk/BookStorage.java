@@ -200,12 +200,12 @@ public class BookStorage extends SQLiteOpenHelper {
 			cursor.moveToFirst();
 		}
 		Book book = new Book(
-				Integer.parseInt(cursor.getString(cursor.getColumnIndex("KEY_BOOK_ID"))),
-				cursor.getString(cursor.getColumnIndex("KEY_TITLE")),
-				cursor.getString(cursor.getColumnIndex("KEY_AUTHOR")));
-		book.setDescription(cursor.getString(cursor.getColumnIndex("KEY_DESCRIPTION")));
-		book.setImgUrl(cursor.getString(cursor.getColumnIndex("KEY_IMG_URL")));
-		book.setPrice(cursor.getString(cursor.getColumnIndex("KEY_PRICE")));
+				Integer.parseInt(cursor.getString(cursor.getColumnIndex(KEY_BOOK_ID))),
+				cursor.getString(cursor.getColumnIndex(KEY_TITLE)),
+				cursor.getString(cursor.getColumnIndex(KEY_AUTHOR)));
+		book.setDescription(cursor.getString(cursor.getColumnIndex(KEY_DESCRIPTION)));
+		book.setImgUrl(cursor.getString(cursor.getColumnIndex(KEY_IMG_URL)));
+		book.setPrice(cursor.getString(cursor.getColumnIndex(KEY_PRICE)));
 		return book;
 	}
 	

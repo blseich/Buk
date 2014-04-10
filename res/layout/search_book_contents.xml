@@ -38,7 +38,8 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_weight="0"
-            android:text="@string/button_search_book_contents"/>
+            android:text="@string/button_search_book_contents"
+            android:textColor="#000000"/>
 
   </LinearLayout>
 
