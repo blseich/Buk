@@ -7,10 +7,12 @@ import android.app.Activity;
 import android.content.Context;
 import android.content.Intent;
 import android.database.sqlite.SQLiteDatabase;
+import android.graphics.Typeface;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.Menu;
 import android.view.View;
+import android.widget.TextView;
 
 import com.objects.buk.Book;
 import com.objects.buk.BookList;
@@ -68,6 +70,8 @@ public class MainMenuActivity extends Activity {
 		Intent intent = new Intent(this, ViewListsActivity.class);
 		startActivity(intent);
 	}
+	
+	
 
 	public void onActivityResult(int requestCode, int resultCode, Intent intent) {
 		String contents = "";
