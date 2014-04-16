@@ -15,6 +15,7 @@ import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
+import android.R;
 import android.graphics.drawable.Drawable;
 import android.os.AsyncTask;
 
@@ -64,38 +65,38 @@ public class BookHelper {
 	    }  
     
 	     public void fetchBook(String upc){ 
-	    	String result = null;
 	    	JSONObject volumeInfo = new JSONObject();
 	    	JSONObject saleInfo = new JSONObject();
-	    	JSONArray industryIdentifiers = new JSONArray();
-	    	JSONArray authors = new JSONArray();
-	        try {             
+	    	try {             
 	        	
 	        	//Retrieve JSON Object
 	            json = products(upc);
-	            json = json.getJSONArray("items").getJSONObject(0);
-	            
-	            //Parse separate JSON Objects
-	            volumeInfo = json.getJSONObject("volumeInfo");
-	            saleInfo = json.getJSONObject("saleInfo");
-	            industryIdentifiers = volumeInfo.getJSONArray("industryIdentifiers");
-	            
-	            //Parse JSON Objects into Book Object
-	            searchResult = new Book(1, volumeInfo.getString("title"), volumeInfo.getJSONArray("authors").get(0).toString());
-	            searchResult.setDescription(volumeInfo.getString("description"));
-	            try {
-	            	searchResult.setPrice(saleInfo.getJSONObject("listPrice").getString("amount"));
-	            } catch (JSONException e) {
-	            	searchResult.setPrice("Not For Sale");
+	            if (json.getString("totalItems").equals("0")){
+	            	searchResult = new Book(0, "NO RESULTS FOUND", "");
+	            	searchResult.setDescription(" ");
+	            	searchResult.setPrice(" ");
+	            	searchResult.setImgUrl(" ");
+	            } else {
+		            json = json.getJSONArray("items").getJSONObject(0);
+		            
+		            //Parse separate JSON Objects
+		            volumeInfo = json.getJSONObject("volumeInfo");
+		            saleInfo = json.getJSONObject("saleInfo");
+		            //Parse JSON Objects into Book Object
+		            searchResult = new Book(1, volumeInfo.getString("title"), volumeInfo.getJSONArray("authors").get(0).toString());
+		            searchResult.setDescription(volumeInfo.getString("description"));
+		            try {
+		            	searchResult.setPrice(saleInfo.getJSONObject("listPrice").getString("amount"));
+		            } catch (JSONException e) {
+		            	searchResult.setPrice("Not For Sale");
+		            }
+		            try {
+		            	searchResult.setImgUrl(volumeInfo.getJSONObject("imageLinks").getString("thumbnail"));
+		            } catch (JSONException e) {
+		            	searchResult.setImgUrl("https://cdn.dinafem.org/static/images/site/no-photo.jpg");
+		            }
 	            }
-	            try {
-	            	searchResult.setImgUrl(volumeInfo.getJSONObject("imageLinks").getString("thumbnail"));
-	            } catch (JSONException e) {
-	            	searchResult.setImgUrl("https://cdn.dinafem.org/static/images/site/no-photo.jpg");
-	            }
-	            //Result is set as SUCCESS causes crash if any exceptions pop up
-	            result = "SUCCESS";
-	            } catch (ClientProtocolException e) {             
+        	}catch (ClientProtocolException e) {             
 	                // TODO Auto-generated catch block             
 	                e.printStackTrace();        
 	            } catch (IOException e) {             
@@ -104,17 +105,18 @@ public class BookHelper {
 	            } catch (JSONException e) {             
 	                // TODO Auto-generated catch block            
 	                e.printStackTrace();         
-	            }      
+	            }
 	    }  
 	     
 	     public Drawable LoadImageFromWebOperations(String url) {
-			    try {
+			    Drawable d;
+	    	 	try {
 			        InputStream is = (InputStream) new URL(url).getContent();
-			        Drawable d = Drawable.createFromStream(is, "src name");
-			        return d;
+			        d = Drawable.createFromStream(is, "src name");
 			    } catch (Exception e) {
-			        return null;
+			    	d = null;
 			    }
+			    return d;
 			}
 
 } 

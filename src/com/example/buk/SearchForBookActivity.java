@@ -93,7 +93,9 @@ public class SearchForBookActivity extends Activity {
 			protected String doInBackground(String... params) {
 				BookHelper bookHelper = new BookHelper();
 				book = bookHelper.searchForBook(keywords);
-				imgFromUrl = bookHelper.LoadImageFromWebOperations(book.getImgUrl());
+				if (book != null) {
+					imgFromUrl = bookHelper.LoadImageFromWebOperations(book.getImgUrl());
+				}
 				return null;
 			}
 			
@@ -114,26 +116,34 @@ public class SearchForBookActivity extends Activity {
 				price.setText(book.getPrice());
 				
 				Drawable dr = imgFromUrl;
+				if (dr == null) {
+					dr = getResources().getDrawable(R.drawable.no_image);
+				}
 				Bitmap bitmap = ((BitmapDrawable) dr).getBitmap();
 				Drawable d = new BitmapDrawable(getResources(), Bitmap.createScaledBitmap(bitmap, dr.getIntrinsicWidth()*5, dr.getIntrinsicHeight()*5, true));
 				
 				img.setImageDrawable(d);
 				searchResultViewer.setVisibility(View.VISIBLE);
 				
-				btn.setOnClickListener(new OnClickListener() {
-					
-					public void onClick(View v) {
-						Bundle b = new Bundle();
-						Intent intent = new Intent(getApplicationContext(), AfterScanListPicker.class);
-						b.putString("title", book.getTitle());
-						b.putString("author", book.getAuthor());
-						b.putString("description", book.getDescription());
-						b.putString("price",book.getPrice());
-						b.putString("imgUrl", book.getImgUrl());
-						intent.putExtras(b);
-						startActivity(intent);		
-					}
-				});
+				if(book.getTitle().equals("NO RESULTS FOUND")) {
+					btn.setVisibility(View.INVISIBLE);
+				} else {
+					btn.setVisibility(View.VISIBLE);
+					btn.setOnClickListener(new OnClickListener() {
+						
+						public void onClick(View v) {
+							Bundle b = new Bundle();
+							Intent intent = new Intent(getApplicationContext(), AfterScanListPicker.class);
+							b.putString("title", book.getTitle());
+							b.putString("author", book.getAuthor());
+							b.putString("description", book.getDescription());
+							b.putString("price",book.getPrice());
+							b.putString("imgUrl", book.getImgUrl());
+							intent.putExtras(b);
+							startActivity(intent);		
+						}
+					});
+				}
 				
 			} 	
 		}
