@@ -1,45 +1,18 @@
 package com.example.buk;
 
-import java.util.ArrayList;
-import java.util.List;
-
 import android.app.Activity;
-import android.content.Context;
 import android.content.Intent;
-import android.database.sqlite.SQLiteDatabase;
-import android.graphics.Typeface;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.Menu;
 import android.view.View;
-import android.widget.TextView;
-
-import com.objects.buk.Book;
-import com.objects.buk.BookList;
-import com.objects.buk.BookStorage;
 
 public class MainMenuActivity extends Activity {
-
-	private Context context = this;
 	
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
-		setContentView(R.layout.main_menu_layout);
-		BookStorage db = new BookStorage(this);
-		
-//		for(int i = 1; i < 11; i++){
-//			BookList bookList = new BookList(0, "Book List " + i);
-//			for(int j = i; j < 11; j++){
-//				Book book = new Book(0, "Book " + i + "." + j, "Author " + i + "." + j);
-//				book.setDescription("Description " + i + "." + j);
-//				book.setPrice("Price " + i + "." + j);
-//				book.setImgUrl("http://bks2.books.google.com/books?id=0gLzGn-LYAQC&printsec=frontcover&img=1&zoom=1&edge=curl&source=gbs_api");
-//				bookList.addBook(book);
-//			}
-//			db.addBookList(bookList);
-//		}
-		
+		setContentView(R.layout.main_menu_layout);		
 	}
 
 	@Override
@@ -49,15 +22,7 @@ public class MainMenuActivity extends Activity {
 		return true;
 	}
 
-	@Override
-	public void onResume() {
-		super.onResume();
-		Log.d("onResume", "onResume Was Called Right NOW!");
-	}
-
-	// onclick of the button, start the buklist activity
-	// Intent intent = new Intent(this, savedBuks.class);
-	// startActivity(intent);
+	//begins the scan activity provided by the zebra crossing libraries
 	public void scanNow(View view) {
 		Intent intent = new Intent("com.google.zxing.client.android.SCAN");
 		intent.putExtra("com.google.zxing.client.android.SCAN.SCAN_MODE",
@@ -65,14 +30,14 @@ public class MainMenuActivity extends Activity {
 		startActivityForResult(intent, 0);
 	}
 
-	// on click of the button, start the list activity
+	//begins the view all list activity
 	public void showLists(View view) {
 		Intent intent = new Intent(this, ViewListsActivity.class);
 		startActivity(intent);
 	}
 	
 	
-
+	//Provides instruction on what to do after the scanner finishes scanning a barcode
 	public void onActivityResult(int requestCode, int resultCode, Intent intent) {
 		String contents = "";
 		if (requestCode == 0) {
@@ -97,6 +62,7 @@ public class MainMenuActivity extends Activity {
 		//}
 	}
 	
+	//begins the search activity
 	public void goToSearch(View view) {
 		Intent intent = new Intent(this, SearchForBookActivity.class);
 		startActivity(intent);

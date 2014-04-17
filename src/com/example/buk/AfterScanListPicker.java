@@ -15,11 +15,9 @@ import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 import android.view.View.OnClickListener;
-import android.widget.EditText;
 import android.widget.RelativeLayout;
 import android.widget.ScrollView;
 import android.widget.TextView;
-import android.widget.ListView;
 
 import com.objects.buk.Book;
 import com.objects.buk.BookList;
@@ -36,15 +34,23 @@ public class AfterScanListPicker extends Activity {
 		setContentView(R.layout.activity_after_scan_list_picker);
 		Intent intent = getIntent();
 		Bundle b = intent.getExtras();
+		
+		//Creates a book object from the attributes passed to the activity
 		book = new Book(0, b.getString("title"), b.getString("author"));
 		book.setDescription(b.getString("description"));
 		book.setPrice(b.getString("price"));
 		book.setImgUrl(b.getString("imgUrl"));
+		
+		//Retrieves all book lists stored in the database
 		List<BookList> allBookLists = db.getAllBookLists();
+		
 		int previousId = 0;
+		
+		//Access the contents of the select screen
 		ScrollView selectListScroller = (ScrollView)findViewById(R.id.selectListScroller);
 		RelativeLayout selectListContainer = (RelativeLayout)selectListScroller.findViewById(R.id.selectListContainer);
 		
+		//Dynamically creates all individual views for each list
 		for(BookList bookList : allBookLists) {
 			RelativeLayout.LayoutParams params = 
 					new RelativeLayout.LayoutParams(
@@ -54,6 +60,7 @@ public class AfterScanListPicker extends Activity {
 			RelativeLayout singleList = new RelativeLayout(this);
 			singleList.setId(bookList.getId());
 			
+			//Positions successive lists below previous ones
 			if(previousId > 0){
 				params.addRule(RelativeLayout.BELOW, previousId);
 			} else {
@@ -64,8 +71,11 @@ public class AfterScanListPicker extends Activity {
 			TextView title = buildListTitle(bookList);
 			TextView numBooks = buildNumBooks(bookList);
 			
+			//Add created views to a container for the single list
 			singleList.addView(title);
 			singleList.addView(numBooks);
+			
+			//sets an onclick listener to add the book to that specific list
 			singleList.setOnClickListener(new OnClickListener() {
 				
 				@Override
@@ -73,6 +83,8 @@ public class AfterScanListPicker extends Activity {
 					showSimplePopUp(book, v.getId());
 				}
 			});
+			
+			//Adds the view for this single list to the container
 			singleList.setLayoutParams(params);
 			selectListContainer.addView(singleList);
 			
@@ -118,11 +130,6 @@ public class AfterScanListPicker extends Activity {
 		
 		return numBooks;
 	}
-	
-	public void showCreateList(View view){
-		Intent intent = new Intent(this, CreateList.class);
-		startActivity(intent);
-	}
 
 	/**
 	 * Set up the {@link android.app.ActionBar}, if the API is available.
@@ -158,12 +165,15 @@ public class AfterScanListPicker extends Activity {
 		return super.onOptionsItemSelected(item);
 	}
 	
+	//Shows a popup on the screen to confirm adding the book to a list
 	private void showSimplePopUp(final Book book, final int listId) {	
 		final BookStorage db = new BookStorage(this);
 		final BookList bookList = db.getBookList(listId);
 		
-		 AlertDialog.Builder helpBuilder = new AlertDialog.Builder(this);
-
+		//Object for the alert dialog
+		AlertDialog.Builder helpBuilder = new AlertDialog.Builder(this);
+		
+		//Sets attributes of the alert dialog
         helpBuilder.setTitle("Confirmation");
         helpBuilder.setMessage("Add " + book.getTitle() + " to " + bookList.getListTitle() + "?");
 
@@ -174,13 +184,18 @@ public class AfterScanListPicker extends Activity {
 				 //Just close dialog box
 			 }
 		 });
+		 
+		 //Sets action to take if the user confirms to add the book
 		 helpBuilder.setPositiveButton("Yes",
 		   new DialogInterface.OnClickListener() {
 			 
 			 @SuppressLint("NewApi") public void onClick(DialogInterface dialog, int which) {
+				 
+				 //adds the book to the book list specified by the button
 				 db.addABook(book, bookList.getId());
+				 
+				 //Takes user back to the main menu
 				 Intent intent = new Intent(getApplicationContext(), MainMenuActivity.class);
-				 intent.putExtra("listId", bookList.getId());
 				 startActivity(intent);
 			 }	
 		 });

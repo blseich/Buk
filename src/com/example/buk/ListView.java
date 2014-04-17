@@ -8,8 +8,6 @@ import android.app.Activity;
 import android.app.AlertDialog;
 import android.content.DialogInterface;
 import android.content.Intent;
-import android.graphics.Bitmap;
-import android.graphics.drawable.BitmapDrawable;
 import android.graphics.drawable.Drawable;
 import android.os.AsyncTask;
 import android.os.Build;
@@ -39,18 +37,28 @@ public class ListView extends Activity {
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.activity_list_view);
 		Intent intent = getIntent();
-		listId = intent.getIntExtra("listId", 0);
-		BookStorage db = new BookStorage(this);
 		
+		//retrieve listId from the parameters passed to the intent
+		listId = intent.getIntExtra("listId", 0);
+		
+		//retrieve a list from the database using the listId provided to the intent
+		BookStorage db = new BookStorage(this);
 		bookList = db.getBookList(listId);
+		
+		//Set the title of the list in the view
 		TextView listTitle = (TextView)findViewById(R.id.listTitle);
 		listTitle.setText(bookList.getListTitle());
 		
+		//retrieve all books associated with this list from the database
 		List<Book> allBooksInList = db.getAllBooksInBookList(listId);
+		
+		//retrieve the views needing to be populated from the layout
 		ScrollView allBooks = (ScrollView)findViewById(R.id.allBooks);
 		RelativeLayout allBooksContainer = (RelativeLayout)allBooks.findViewById(R.id.allBooksContainer);
 		int previousId = 0;
 		
+		
+		//Dynamically create all views for each book
 		for(Book book : allBooksInList){
 			RelativeLayout.LayoutParams params = 
 					new RelativeLayout.LayoutParams(
@@ -60,35 +68,46 @@ public class ListView extends Activity {
 			RelativeLayout singleBook = new RelativeLayout(this);
 			singleBook.setId(book.getId());
 			
+			//Set rule to place book views underneath one another
 			if(previousId > 0){
 				params.addRule(RelativeLayout.BELOW, previousId);
 			} else {
 				params.addRule(RelativeLayout.ALIGN_PARENT_TOP, 1);
 			}
 
+			//build the views that make up each individual book view
 			ImageView thumbnail = buildThumbnail(book);
 			TextView title = buildBookTitle(book);
 			TextView author = buildBookAuthor(book);
 			
+			//Set the book view to open the book to view its detials once clicked upon
 			singleBook.setOnClickListener(new OnClickListener() {
 				
 				@Override
 				public void onClick(View v) {
+					
+					//Attach the specified bookId to the future intent
 					Bundle b = new Bundle();
 					Intent intent = new Intent(getApplicationContext(), BookView.class);
 					int bookId = v.getId();
 					b.putInt("bookId", bookId);
+					
+					//begin the intent to show book details
 					intent.putExtras(b);
 					startActivity(intent);
 				}
 			});
 			
+			//place all views into the single book view
 			singleBook.addView(thumbnail);
 			singleBook.addView(title);
 			singleBook.addView(author);
 			singleBook.setLayoutParams(params);
 			
+			//place the single book view into the collection view for all the books
 			allBooksContainer.addView(singleBook);
+			
+			//update the previous id to set the next book view below the one just created
 			previousId = book.getId();
 		
 		}
@@ -99,11 +118,14 @@ public class ListView extends Activity {
 	
 	@Override
 	public void onResume(){
+		//reload the page each time the page resumes
+		//this ensures books that were deleted no longer show up in this list view
 		Bundle b = new Bundle();
 		b.putInt("listId", listId);
 		onCreate(b);
 	}
 
+	//Dynamically create the author field for each book view
 	private TextView buildBookAuthor(Book book) {
 		TextView bookAuthor = new TextView(this);
 		RelativeLayout.LayoutParams params = 
@@ -120,6 +142,7 @@ public class ListView extends Activity {
 		return bookAuthor;
 	}
 	
+	//Dynamically create the title field for each book view
 	private TextView buildBookTitle(Book book) {
 		TextView bookTitle = new TextView(this);
 		RelativeLayout.LayoutParams params = 
@@ -138,7 +161,10 @@ public class ListView extends Activity {
 		return bookTitle;
 	}
 	
+	//Retrieve and create the thumbnail for each book view
 	private ImageView buildThumbnail(Book book){
+		//Asynchronous task used to make a network call and retrieve an image from url
+		//provided by the api
 		class GetThumbnail extends AsyncTask<String, Integer, String> {
 			Drawable dr;
 			int imageId = 0;
@@ -149,17 +175,16 @@ public class ListView extends Activity {
 				this.imageId = imageId;
 			}
 			
+			//Retrieve the image from the url specified
 			@Override
 			protected String doInBackground(String... params) {
 				BookHelper bookHelper = new BookHelper();
 				dr = bookHelper.LoadImageFromWebOperations(imgUrl);
 				return null;
 			}
+			//Create the thumbnail drawable form the url
 			@Override 
 			protected void onPostExecute(String result){
-				Bitmap bitmap = ((BitmapDrawable) dr).getBitmap();
-				Drawable d = new BitmapDrawable(getResources(), Bitmap.createScaledBitmap(bitmap, dr.getIntrinsicWidth()*2, dr.getIntrinsicHeight()*2, true));
-				
 				ImageView thumbnail = (ImageView)findViewById(imageId);
 				thumbnail.setImageDrawable(dr);
 			}
@@ -216,10 +241,12 @@ public class ListView extends Activity {
 		return super.onOptionsItemSelected(item);
 	}
 	
+	//the onclick function for the remove list button
 	public void removeList(View V) {
 		showSimplePopUp();
 	}
 	
+	//shows a popup to confirm the removal of this list
 	private void showSimplePopUp() {	
 		final BookStorage db = new BookStorage(this);
 		
@@ -235,6 +262,8 @@ public class ListView extends Activity {
 				 //Just close dialog box
 			 }
 		 });
+		 
+		 //If the confirm button is clicked, remove the list from the database
 		 helpBuilder.setPositiveButton("Confirm",
 		   new DialogInterface.OnClickListener() {
 			 

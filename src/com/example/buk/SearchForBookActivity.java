@@ -32,9 +32,13 @@ public class SearchForBookActivity extends Activity {
 		Intent intent = getIntent();
 		
 		Bundle b = intent.getExtras();
+		//If parameters were passed by the main menu activity this means
+		//that a book has been scanned and that information should be loaded into
+		//the respective fields
 		if(b != null && b.get("ISBN") != null){
 			EditText keywordSearch = (EditText)findViewById(R.id.keywordSearch);
 			keywordSearch.setText(b.get("ISBN").toString());
+			//executes a search based on the ISBN number provided from the scanner
 			this.executeSearch(null);
 		}
 		// Show the Up button in the action bar.
@@ -75,6 +79,7 @@ public class SearchForBookActivity extends Activity {
 		return super.onOptionsItemSelected(item);
 	}
 	
+	//Function to run when the exectue search button is clicked
 	public void executeSearch(View view){
 		class GetBook extends AsyncTask<String, Integer, String> {
 			private Book book = null;
@@ -85,10 +90,7 @@ public class SearchForBookActivity extends Activity {
 				keywords = search;			
 			}
 			
-			public Book retrieveSearchResult() {
-				return this.book;
-			}
-			
+			//Execute a search for a book based on the parameters in the search bar
 			@Override
 			protected String doInBackground(String... params) {
 				BookHelper bookHelper = new BookHelper();
@@ -100,6 +102,7 @@ public class SearchForBookActivity extends Activity {
 			}
 			
 
+			//Once the network call has finished, populate all fields with results from the search
 			@Override 
 			protected void onPostExecute(String result){    
 				ScrollView searchResultViewer = (ScrollView)findViewById(R.id.searchResult);
@@ -125,9 +128,13 @@ public class SearchForBookActivity extends Activity {
 				img.setImageDrawable(d);
 				searchResultViewer.setVisibility(View.VISIBLE);
 				
+				//If there were no results found, do not show the add book button
 				if(book.getTitle().equals("NO RESULTS FOUND")) {
 					btn.setVisibility(View.INVISIBLE);
-				} else {
+				} 
+				//If there were search results, show the add book button and add an onclick
+				//listener to start the select list to add book to activity
+				else {
 					btn.setVisibility(View.VISIBLE);
 					btn.setOnClickListener(new OnClickListener() {
 						
@@ -150,6 +157,7 @@ public class SearchForBookActivity extends Activity {
 		
 		EditText searchBox = (EditText)findViewById(R.id.keywordSearch);
 		String search = searchBox.getText().toString();
+		//Only executes search if the search box is populated
 		if (search.length() > 0) {
 			new GetBook(search).execute("1");
 		}		

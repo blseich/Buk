@@ -16,13 +16,11 @@ import android.support.v4.app.NavUtils;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
-import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.objects.buk.Book;
 import com.objects.buk.BookHelper;
-import com.objects.buk.BookList;
 import com.objects.buk.BookStorage;
 
 public class BookView extends Activity {
@@ -37,10 +35,12 @@ public class BookView extends Activity {
 		Intent intent = getIntent();
 		Bundle b = intent.getExtras();
 		BookStorage db = new BookStorage(this);
+		
+		//Retrieves book information based on the id passed to the intent
 		int id = b.getInt("bookId");
 		book = db.getABook(id);
-		// Show the Up button in the action bar.
 		
+		//Inputs the information from the book into the respective fields for the view
 		TextView title = (TextView) findViewById(R.id.bookTitle);
 		title.setText(book.getTitle());
 	    
@@ -53,6 +53,7 @@ public class BookView extends Activity {
 		TextView price = (TextView) findViewById(R.id.bookPrice);
 		price.setText(book.getPrice());
 		
+		//Creates a network call to retrieve an image from a url
 		class GetThumbnail extends AsyncTask<String, Integer, String> {
 			Drawable dr;
 			int imageId = 0;
@@ -65,17 +66,19 @@ public class BookView extends Activity {
 			
 			@Override
 			protected String doInBackground(String... params) {
+				//Makes network call to get image from a url
 				BookHelper bookHelper = new BookHelper();
 				dr = bookHelper.LoadImageFromWebOperations(imgUrl);
 				return null;
 			}
 			@Override 
 			protected void onPostExecute(String result){
+				//builds a bitmap image based on the image retrieved from the url				
 				Bitmap bitmap = ((BitmapDrawable) dr).getBitmap();
 				Drawable d = new BitmapDrawable(getResources(), Bitmap.createScaledBitmap(bitmap, dr.getIntrinsicWidth()*2, dr.getIntrinsicHeight()*2, true));
 				
 				ImageView thumbnail = (ImageView)findViewById(imageId);
-				thumbnail.setImageDrawable(dr);
+				thumbnail.setImageDrawable(d);
 			}
 			
 		}		
@@ -142,7 +145,6 @@ public class BookView extends Activity {
 			 
 			 @SuppressLint("NewApi") public void onClick(DialogInterface dialog, int which) {
 				 db.deleteBook(book);
-				 Intent intent = new Intent(getApplicationContext(), ViewListsActivity.class);
 				 finish();
 			 }	
 		 });

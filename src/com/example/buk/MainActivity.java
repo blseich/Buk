@@ -1,7 +1,6 @@
 package com.example.buk;
 
 import android.app.Activity;
-import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.Menu;
@@ -21,16 +20,19 @@ public class MainActivity extends Activity {
         
         final Intent intent = new Intent(this, MainMenuActivity.class);
         
+        //Load all images into the intent
         final ImageView bookImg = (ImageView) findViewById(R.id.book_load);
         final ImageView bukWordImg = (ImageView) findViewById(R.id.buk_word_load);
         final ImageView glassesImg = (ImageView) findViewById(R.id.glasses_load);
         final RelativeLayout loadLayout = (RelativeLayout) findViewById(R.id.load_layout);
         
+        //Load all animations into the layout
         final Animation dropInBookImg = AnimationUtils.loadAnimation(this, R.anim.drop_in);
         final Animation dropInBukWordImg = AnimationUtils.loadAnimation(this, R.anim.drop_in);
         final Animation dropInGlassesImg = AnimationUtils.loadAnimation(this, R.anim.drop_in);
 		final Animation fadeOut = AnimationUtils.loadAnimation(this, R.anim.fade_out);
 		
+		//Begin each animation in succession after another animation finishes
         dropInBookImg.setAnimationListener(new AnimationListener() {
         	
         	@Override
@@ -96,6 +98,7 @@ public class MainActivity extends Activity {
         		
         }); 
         
+        //Last animation
         fadeOut.setAnimationListener(new AnimationListener(){
 
         	@Override
@@ -112,7 +115,9 @@ public class MainActivity extends Activity {
         	
         	@Override
         	public void onAnimationEnd(Animation animation) {
+        		//Make this intent invisible so it doesnt show up late
         		loadLayout.setVisibility(View.GONE);
+        		//take user to the main menu activity
         		startActivity(intent);
         	}
         });
@@ -120,7 +125,7 @@ public class MainActivity extends Activity {
         bookImg.startAnimation(dropInBookImg);
     }
 
-
+	
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
         // Inflate the menu; this adds items to the action bar if it is present.

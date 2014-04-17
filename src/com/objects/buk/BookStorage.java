@@ -9,6 +9,7 @@ import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 import android.database.sqlite.SQLiteOpenHelper;
 
+//Class to handle all database transactions
 public class BookStorage extends SQLiteOpenHelper {
 	
 	private static final int DATABASE_VERSION = 2;
@@ -40,6 +41,7 @@ public class BookStorage extends SQLiteOpenHelper {
 	private static final String KEY_DESCRIPTION = "Description";
 	private static final String KEY_IMG_URL = "ImgUrl";
 	
+	//SQL query to create the Book Table
 	private static final String BOOK_TABLE_CREATE =
 			"CREATE TABLE " + BOOK_TABLE_NAME + " (" +
 					KEY_BOOK_ID + " INTEGER PRIMARY KEY AUTOINCREMENT," +
@@ -50,6 +52,7 @@ public class BookStorage extends SQLiteOpenHelper {
 					" FOREIGN KEY (" + KEY_BOOK_LIST_ID + ") REFERENCES "
 					+ BOOK_LIST_TABLE_NAME + " (" + KEY_BOOK_LIST_ID + "))"; 
 	
+	//Creates the databases if they are not already created
 	public BookStorage (Context context) {
 		super(context, DATABASE_NAME, null, DATABASE_VERSION);
 	}
@@ -61,6 +64,7 @@ public class BookStorage extends SQLiteOpenHelper {
 		
 	}
 
+	//On an upgrade, the tables must be dropped and then recreated
 	@Override
 	public void onUpgrade(SQLiteDatabase db, int oldVersion, int newVersion) {
 		db.execSQL("DROP TABLE IF EXISTS " + BOOK_LIST_TABLE_NAME);

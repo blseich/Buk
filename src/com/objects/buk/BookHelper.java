@@ -11,21 +11,21 @@ import org.apache.http.client.HttpClient;
 import org.apache.http.client.methods.HttpGet;
 import org.apache.http.impl.client.DefaultHttpClient;
 import org.apache.http.util.EntityUtils;
-import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
-import android.R;
 import android.graphics.drawable.Drawable;
-import android.os.AsyncTask;
 
 
+//Book helper class structures an api call and retrieves search results.
 public class BookHelper {
 	
+	//Structure the url for an api call
 	final static String URL = "https://www.googleapis.com/books/v1/volumes";
 	String upc = "/zyTCAlFPjgYC";
 	String key = "?key=AIzaSyBkpidsGG3l5t_r5-TF3jXrby-nbnJ72WM";
 	
+	//open object necessary to make api call and retrieve results
 	private HttpClient client;
 	private JSONObject json;	
 	private Book searchResult = null;
@@ -34,6 +34,8 @@ public class BookHelper {
 			client = new DefaultHttpClient();
 	}
 	
+	//Places the keywords into the search field of the api call, executes a search, and returns a book object
+	//populate with the results of this search
 	public Book searchForBook(String keywords) {
 		upc = "?q=" + keywords.replace(" ", "+").replaceAll("[/]", "\\/");
 		key = "&key=AIzaSyBkpidsGG3l5t_r5-TF3jXrby-nbnJ72WM";
@@ -42,6 +44,7 @@ public class BookHelper {
 		return searchResult;
 	}
 	
+	//Makes the actual api call
 	public JSONObject products(String upc)  throws ClientProtocolException, IOException, JSONException {     
 	    StringBuilder url = new StringBuilder(URL); 
 	    url.append(upc);
@@ -51,7 +54,8 @@ public class BookHelper {
 	    HttpResponse r = client.execute(get);   
 	    int status = r.getStatusLine().getStatusCode();
 	    JSONObject timeline = null;
-
+	    
+	    //If the call was made successfully return the JSONObject produced
 	    if (status == 200) {
 	    	
 	        HttpEntity e = r.getEntity();         
@@ -64,6 +68,7 @@ public class BookHelper {
 	    return timeline;   
 	    }  
     
+		//Function called outside of this class to execute a keyword search
 	     public void fetchBook(String upc){ 
 	    	JSONObject volumeInfo = new JSONObject();
 	    	JSONObject saleInfo = new JSONObject();
@@ -71,12 +76,16 @@ public class BookHelper {
 	        	
 	        	//Retrieve JSON Object
 	            json = products(upc);
+	            //If no objects are within the jsonobject the search returned no results
 	            if (json.getString("totalItems").equals("0")){
 	            	searchResult = new Book(0, "NO RESULTS FOUND", "");
 	            	searchResult.setDescription(" ");
 	            	searchResult.setPrice(" ");
 	            	searchResult.setImgUrl(" ");
-	            } else {
+	            } 
+	            //Else retrieve information from the first returned item and place the information
+	            //into a new book object
+	            else {
 		            json = json.getJSONArray("items").getJSONObject(0);
 		            
 		            //Parse separate JSON Objects
@@ -92,7 +101,9 @@ public class BookHelper {
 		            }
 		            try {
 		            	searchResult.setImgUrl(volumeInfo.getJSONObject("imageLinks").getString("thumbnail"));
-		            } catch (JSONException e) {
+		            } 
+		            //If there is no image url in the json object, set it to a static image url that says no image is available
+		            catch (JSONException e) {
 		            	searchResult.setImgUrl("https://cdn.dinafem.org/static/images/site/no-photo.jpg");
 		            }
 	            }
@@ -108,6 +119,8 @@ public class BookHelper {
 	            }
 	    }  
 	     
+	     //Function to be called from outside the class
+	     //Makes a network call to retrieve a drawable from the specified image url
 	     public Drawable LoadImageFromWebOperations(String url) {
 			    Drawable d;
 	    	 	try {

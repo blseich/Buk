@@ -1,10 +1,6 @@
 package com.objects.buk;
 
-import org.json.JSONException;
-import org.json.JSONObject;
-
-import android.graphics.drawable.Drawable;
-
+//Creates a new class to store and retrieve book data
 public class Book {
 	final private int id;
 	final private String title;
@@ -14,6 +10,7 @@ public class Book {
 	private String imgUrl;
 	
 	//set book information
+	//id is required but not placed into database so when a new book is created id is set to 0
 	public Book(int id, String bookName, String writer){
 		this.id = id;
 		this.title = bookName;

@@ -2,6 +2,7 @@ package com.objects.buk;
 
 import java.util.ArrayList;
 
+//a new item to hold all books specified to the list as well as the title of the list
 public class BookList {
 	
 	private final int id;
